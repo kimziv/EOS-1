@@ -1,0 +1,627 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>How to build eos - BlockchainTranslator</title>
+
+
+
+
+<meta name="description" content="">
+
+
+
+
+<meta name="author" content="BlockchainTranslator  ">
+
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="BlockchainTranslator  ">
+<meta property="og:title" content="How to build eos">
+
+
+  <link rel="canonical" href="http://localhost:4000/How-To-Build-EOS/">
+  <meta property="og:url" content="http://localhost:4000/How-To-Build-EOS/">
+
+
+
+  <meta property="og:description" content="">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-08-23T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "BlockchainTranslator Group",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="BlockchainTranslator   Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://localhost:4000/">BlockchainTranslator  </a>
+        <ul class="visible-links">
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">BlockchainTranslator  </h3>
+    
+      <p class="author__bio" itemprop="description">
+        In Blockchain We Trust.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">China</span>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/BlockchainTranslator" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="How to build eos">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="August 23, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">How to build eos
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  4 分钟读完
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+<h2 id="how-to-build-eosio--如何构建-eosio">How To Build EOS.IO – 如何构建 EOS.IO</h2>
+
+<p>Describes how to download, compile, and configure an EOS.IO node.</p>
+
+<p>The following instructions overview the process of getting the software, building it, and running a simple test network that produces blocks.</p>
+
+<p>描述了如何下载，编译，并且配置一个 EOS.IO 的节点。</p>
+
+<p>以下的操作说明概况了如何获得，构建和运行一个能产生区块的简单测试网络的整个过程。</p>
+
+<h2 id="setting-up-a-builddevelopment-environment--搭建一个用于构建开发的环境">Setting up a build/development environment – 搭建一个用于构建/开发的环境</h2>
+
+<p>This project is written primarily in C++14 and uses CMake as its build system. An up-to-date C++ toolchain (such as Clang or GCC) and the latest version of CMake is recommended. At the time of this writing, Nathan uses clang 4.0.0 and CMake 3.8.0.</p>
+
+<p>这个项目主要是用 C++14 编写的，并且使用了 CMake 作为它的构建系统。推荐使用最新的 C++ 工具链（比如说 Clang 或者 GCC）和最新版本的 CMake。在撰写本文档时，Nathan 使用的是 clang 4.0.0和 CMake 3.8.0。</p>
+
+<h2 id="installing-dependencies--安装依赖包">Installing Dependencies – 安装依赖包</h2>
+
+<p>Eos has the following external dependencies, which must be installed on your system:</p>
+
+<p>EOS 有如下的外部依赖包必须在你的系统上安装：</p>
+
+<ul>
+  <li>Boost 1.64</li>
+  <li>OpenSSL</li>
+  <li>LLVM 4.0</li>
+  <li><a href="https://github.com/cryptonomex/secp256k1-zkp">secp256k1-zkp (Cryptonomex 分支)</a>
+    <div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/cryptonomex/secp256k1-zkp.git
+cd secp256k1-zkp
+./autogen.sh
+./configure
+make
+sudo make install
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h2 id="how-to-build-llvm-and-clang-for-wasm--如何为-wasm-构建-llvm-和-clang">How to Build LLVM and clang for WASM – 如何为 WASM 构建 LLVM 和 clang</h2>
+<p>By default LLVM and clang do not include the WASM build target, so you will have to build it yourself. Note that following these instructions will create a version of LLVM that can only build WASM targets.</p>
+
+<p>LLVM 和 clang 默认是不包括 WASM 的构建目标的，所以你必须要自己构建。注意以下的操作指令将会创建一个只用来构建 WASM 的一个LLVM的版本。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mkdir  ~/wasm-compiler
+cd ~/wasm-compiler
+git clone --depth 1 --single-branch --branch release_40 https://github.com/llvm-mirror/llvm.git
+cd llvm/tools
+git clone --depth 1 --single-branch --branch release_40 https://github.com/llvm-mirror/clang.git
+cd ..
+mkdir build
+cd build
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=.. -DLLVM_TARGETS_TO_BUILD= -DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=WebAssembly -DCMAKE_BUILD_TYPE=Release ../
+make -j4 install
+</code></pre>
+</div>
+
+<p>Getting the code – 获取代码</p>
+
+<p>To download all of the code, download Eos and a recursion or two of submodules. The easiest way to get all of this is to do a recursive clone:</p>
+
+<p>为了下载所有的代码，可以递归下载 EOS 或者下载 EOS 和两个子模块。下载所有代码最简单的方法是使用一个递归克隆：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/eosio/eos --recursive
+</code></pre>
+</div>
+<p>If a repo is cloned without the –recursive flag, the submodules can be retrieved after the fact by running this command from within the repo:</p>
+
+<p>如果在克隆版本库的时候并没有使用 –recursive 这个命令行参数，那么在下载完成以后可以通过在版本库中运行这个命令来获取子模块：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>git submodule update --init --recursive
+</code></pre>
+</div>
+
+<h2 id="configuring-and-building--配置和构建">Configuring and building – 配置和构建</h2>
+
+<p>To do an in-source build, simply run cmake . from the top level directory. Out-of-source builds are also supported. To override clang’s default choice in compiler, add these flags to the CMake command:</p>
+
+<p>如果要做源码内构建的话，只需要在顶层文件夹运行 “cmake .” EOS 也支持源码外构建。为了覆盖在编译器里的 clang 的默认选择，把这些命令行参数加到 Cmake 的命令中去：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>-DCMAKE_CXX_COMPILER=/path/to/c++ -DCMAKE_C_COMPILER=/path/to/cc
+</code></pre>
+</div>
+
+<p>For a debug build, add -DCMAKE_BUILD_TYPE=Debug. Other common build types include Release and RelWithDebInfo.</p>
+
+<p>如果是调试类型构建的话，加入命令行参数 -DCMAKE_BUILD_TYPE=Debug 。其他常用的构建类型是 Release 和 RelWithDebInfo 。</p>
+
+<p>After successfully running cmake, simply run make to build everything. To run the test suite after building, run the chain_test executable in the tests folder.</p>
+
+<p>cmake成功运行之后，只需要运行 make 来 构建所有的代码。构建以后如果需要运行测试集，就运行 tests 文件夹中的 chain_test 可执行文件。</p>
+
+<h2 id="using-the-wasm-compiler-to-perform-a-full-build-of-the-project--使用-wasm-编译器来对整个项目进行完全构建">Using the WASM compiler to perform a full build of the project – 使用 WASM 编译器来对整个项目进行完全构建</h2>
+
+<p>The WASM_LLVM_CONFIG environment variable is used to find our recently built WASM compiler. This is needed to compile the example contracts insde eos/contracts folder and their respective tests.</p>
+
+<p>我们用 WASM_LLVM_CONFIG 这个环境变量来发现我们最近构建的 WASM 编译器。在编译 eos/contracts 文件夹里的合约用例和他们各自的测试用例时需要用到这个 WASM 编译器。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/eosio/eos --recursive
+mkdir -p eos/build &amp;&amp; cd eos/build
+export WASM_LLVM_CONFIG=~/wasm-compiler/llvm/bin/llvm-config 
+cmake ..
+make -j4
+</code></pre>
+</div>
+
+<p>If you are doing active development on EOS.IO software you may want to add WASM_LLVM_CONFIG to your .bash_profile</p>
+
+<p>如果你需要经常在 EOS.IO 软件上进行开发的话，你可能会想要把 WASM_LLVM_CONFIG 加到你的 .bash_profile 文件中去。</p>
+
+<p>Creating and launching a single-node testnet – 创立和启动单节点的测试网络</p>
+
+<p>After successfully building the project, the eosd binary should be present in the programs/eosd directory. Go ahead and run eosd – it will probably exit with an error, but if not, close it immediately with Ctrl-C. Note that eosd will have created a directory named data-dir containing the default configuration (config.ini) and some other internals. This default data storage path can be overridden by passing –data-dir /path/to/data to eosd.</p>
+
+<p>在成功构建项目之后，eosd 的二进制代码就应该出现在 programs/eosd 文件夹中。现在可以运行 eosd - 它可能会由于一个错误而退出，但是如果没有的话，马上用 Ctrl-C来关闭它。注意 eosd 会创建一个叫做 data-dir 的文件夹，里面有默认配置 （ config.ini ) 和一些其他的内部文件。可以通过加一个命令行参数 –data-dir /path/to/data 给 eosd 来覆盖掉这个默认的数据存储文件夹。</p>
+
+<p>Edit the config.ini file, adding the following settings to the defaults already in place:</p>
+
+<p>编辑 config.ini 文件，把以下设置加到已经存在的默认设置中：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code># Load the testnet genesis state, which creates some initial block producers with the default key
+genesis-json = /path/to/eos/source/genesis.json
+# Enable production on a stale chain, since a single-node test chain is pretty much always stale
+enable-stale-production = true
+# Enable block production with the testnet producers
+producer-name = inita
+producer-name = initb
+producer-name = initc
+producer-name = initd
+producer-name = inite
+producer-name = initf
+producer-name = initg
+producer-name = inith
+producer-name = initi
+producer-name = initj
+producer-name = initk
+producer-name = initl
+producer-name = initm
+producer-name = initn
+producer-name = inito
+producer-name = initp
+producer-name = initq
+producer-name = initr
+producer-name = inits
+producer-name = initt
+producer-name = initu
+# Load the block producer plugin, so we can produce blocks
+plugin = eos::producer_plugin
+</code></pre>
+</div>
+
+<p>Now it should be possible to run eosd and see it begin producing blocks. At present, the P2P code is not implemented, so only single-node configurations are possible. When the P2P networking is implemented, these instructions will be updated to show how to create an example multi-node testnet.</p>
+
+<p>现在是应该可以运行 eosd 并且可以看到它开始产生区块。目前 P2P 的代码还未实现，所以只可能有一个单节点的配置。在 P2P 代码实现以后，将会更新这些操作说明来表明如何创建一个多节点测试网络的用例。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2017-08-23T00:00:00+08:00">August 23, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=How+to+build+eos%20http%3A%2F%2Flocalhost%3A4000%2FHow-To-Build-EOS%2F" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FHow-To-Build-EOS%2F" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2FHow-To-Build-EOS%2F" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FHow-To-Build-EOS%2F" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/EOS-Command-Line-Client/" class="pagination--pager" title="Eos command line client
+">向前</a>
+    
+    
+      <a href="http://localhost:4000/eos-dawn-1.0-released/" class="pagination--pager" title="Eos Dawn 1.0 Released
+">向后</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/the-message-is-the-medium/" rel="permalink">The Message Is The Medium
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  14 分钟读完
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">The Message Is The Medium  信息即媒介
+
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/EOS-White-Paper-Digest/" rel="permalink">Eos White Paper Digest
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 分钟读完
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">﻿# EOS White Paper Digest 对EOS白皮书的摘要
+
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/a-proof-of-stake-design-philosophy/" rel="permalink">A Proof Of Stake Design Philosophy
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  9 分钟读完
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">A Proof of Stake Design Philosophy–权益证明设计哲学
+
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/10-reasons-to-buy-EOS-tokens-right-now/" rel="permalink">10 reasons to buy eos tokens right now
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 分钟读完
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">10 reasons to buy EOS tokens right now 现在购买EOS的十大理由
+
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/BlockchainTranslator"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 BlockchainTranslator Group. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
