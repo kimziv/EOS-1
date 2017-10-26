@@ -13,6 +13,10 @@
 <lastmod>2017-08-23T00:00:00+08:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/EOS.IO-Technical-White-Paper/</loc>
+<lastmod>2017-09-09T00:00:00+08:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/eos-dawn-1.0-released/</loc>
 <lastmod>2017-09-16T00:00:00+08:00</lastmod>
 </url>
@@ -27,6 +31,10 @@
 <url>
 <loc>http://localhost:4000/Introducing-EOS.IO-Storage/</loc>
 <lastmod>2017-09-20T00:00:00+08:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/eosd-RPC-Interface/</loc>
+<lastmod>2017-10-08T00:00:00+08:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/EOS-Development-Sneak-Peek-for-Very-Early-Developers/</loc>
@@ -97,6 +105,10 @@
 <lastmod>2017-10-22T00:00:00+08:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/README/</loc>
+<lastmod>2017-10-27T00:00:00+08:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/</loc>
 </url>
 <url>
@@ -110,5 +122,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/page5/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/page6/</loc>
 </url>
 </urlset>

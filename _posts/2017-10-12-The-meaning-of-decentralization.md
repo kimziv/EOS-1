@@ -14,7 +14,7 @@ But there is often a lot of confusion as to what this word actually means. Consi
 
 但这个词实际上意味着什么, 经常会有很多混淆。如下图:
 
-![](pics/meaning-of-decentralization-1.png)
+![](../assets/pics/meaning-of-decentralization-1.png)
 
 Now, consider the two answers on Quora for [“what is the difference between distributed and decentralized”](https://www.quora.com/Whats-the-difference-between-distributed-and-decentralized-in-Bitcoin-land). The first essentially parrots the above diagram, whereas the second makes the entirely different claim that “distributed means not all the processing of the transactions is done in the same place”, whereas “decentralized means that not one single entity has control over all the processing”. Meanwhile, the top answer on the Ethereum stack exchange gives [a very similar diagram](https://ethereum.stackexchange.com/questions/7812/question-on-the-terms-distributed-and-decentralised), but with the words “decentralized” and “distributed” switched places! Clearly, a clarification is in order.
 
@@ -43,7 +43,7 @@ When people talk about software decentralization, there are actually three separ
 We can try to put these three dimensions into a chart:
 我们把以上三个维度画成图：
 
-![](pics/meaning-of-decentralization-2.png)
+![](../assets/pics/meaning-of-decentralization-2.png)
 
 Note that a lot of these placements are very rough and highly debatable. But let’s try going through any of them:
 示意图很粗糙也很有争议。但我们分别来看一下：
@@ -197,7 +197,7 @@ In the case of blockchain protocols, the mathematical and economic reasoning beh
 
 在区块链协议方面, 共识安全背后的数学和经济推理往往依赖于不协调的选择模型, 或者假设这个游戏由许多小参与者组成, 它们各自做出独立的决定.如果任何一个参与者在POW中获得超过1/3 的采矿权, 他们可以通过自私的采矿获得超额利润。然而, 我们真的可以说, 当90% 的比特币网络的旷工同时出现在一个会议上, 他们的选择是一致的吗？
 
-![](pics/meaning-of-decentralization-3.png)
+![](../assets/pics/meaning-of-decentralization-3.png)
 
 Blockchain advocates also make the point that blockchains are more secure to build on because they can’t just change their rules arbitrarily on a whim whenever they want to, but this case would be difficult to defend if the developers of the software and protocol were all working for one company, were part of one family and sat in one room. The whole point is that these systems should not act like self-interested unitary monopolies. Hence, you can certainly make a case that blockchains would be more secure if they were more discoordinated.
 
