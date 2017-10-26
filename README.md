@@ -51,16 +51,35 @@
 
 - **专家组**
 
-    @梓岑@YOYOW、程亮、@Alex、@馋嘴猫在路上、@ranger-老石
+    @梓岑@YOYOW、程亮、@Alex、@馋嘴猫在路上、@ranger-老石、@咕噜 BIHU.COM
 
 - **翻译组**
 
-    王明华-BCT001、张  奎-BCT002、胡  亮-BCT003、程 伟-BCT004、鱼-BCT005、龙心小台-BCT006  
-  
+    王明华-BCT001、张  奎-BCT002、胡  亮-BCT003、程 伟-BCT004、鱼-BCT005、龙心小台-BCT006、晓顿-BCT007、
+    林炜鑫-BCT008、胖子Ricky-BCT009、AMY-BCT010、楷书-BCT011、Haoshi Hu-BCT012、茶猫-BCT013、小丹-BCT014、荆凯(shuke0327)-BCT015
+  
 - **运营组**
 
-    浅浅的月光杨若暄、StarFading、楚青歌  
-   
+    浅浅的月光杨若暄、StarFading、楚青歌
+    
+
+资料来源
+-------------------------------
+
+EOS官方博客： [https://steemit.com/@eosio](https://steemit.com/@eosio)    
+
+EOS开发博客： [https://steemit.com/trending/eos](https://steemit.com/trending/eos)
+
+EOS开发文档： [https://eosio.github.io/eos/index.html](https://eosio.github.io/eos/index.html)
+
+EOS资料库：   [https://eos.io/resources/](https://eos.io/resources)
+
+EOS论坛：     [https://eostalk.io/](https://eostalk.io)
+
+EOS开发GIT：  [https://github.com/EOSIO/eos](https://github.com/EOSIO/eos)
+
+EOS官方网站： [https://eos.io/](https://eos.io)
+
 
 当前工作
 -------------------------------
