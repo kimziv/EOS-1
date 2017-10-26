@@ -1,0 +1,554 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.6.0 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Introducing eos.io application stack - BlockchainTranslator</title>
+
+
+
+
+<meta name="description" content="Introducing EOS.IO Application Stack–EOS.IO 应用程序栈">
+
+
+
+
+<meta name="author" content="BlockchainTranslator  ">
+
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="BlockchainTranslator  ">
+<meta property="og:title" content="Introducing eos.io application stack">
+
+
+  <link rel="canonical" href="http://localhost:4000/Introducing-EOS.IO-Application-Stack/">
+  <meta property="og:url" content="http://localhost:4000/Introducing-EOS.IO-Application-Stack/">
+
+
+
+  <meta property="og:description" content="Introducing EOS.IO Application Stack–EOS.IO 应用程序栈">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-10-11T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "BlockchainTranslator Group",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="BlockchainTranslator   Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="http://localhost:4000/">BlockchainTranslator  </a>
+        <ul class="visible-links">
+          
+        </ul>
+        <button type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">BlockchainTranslator  </h3>
+    
+      <p class="author__bio" itemprop="description">
+        In Blockchain We Trust.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">China</span>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/BlockchainTranslator" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Introducing eos.io application stack">
+    <meta itemprop="description" content="Introducing EOS.IO Application Stack–EOS.IO 应用程序栈">
+    <meta itemprop="datePublished" content="October 11, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Introducing eos.io application stack
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 分钟读完
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h2 id="introducing-eosio-application-stackeosio-应用程序栈">Introducing EOS.IO Application Stack–EOS.IO 应用程序栈</h2>
+
+<blockquote>
+  <p>本文翻译自：https://steemit.com/eos/@eosio/introducing-eos-io-application-stack</p>
+
+  <p>译者：<a href="https://github.com/BlockchainTranslator/EOS">区块链中文字幕组</a>  <a href="https://github.com/jonas-meng">Xuming Meng</a></p>
+
+  <p>翻译时间：2017-10-11</p>
+</blockquote>
+
+<hr />
+<p>After three years of experience with BitShares and Steem, it has become abundantly clear that developing decentralized applications requires much more than a fast blockchain. It also requires infrastructure capable of offering a usable experience to millions of concurrent users. In the early days of steemit.com, users were expected to provide their own image hosting. This made the interface difficult to use and prone to broken images.</p>
+
+<p>在 BitShares 和 Steem 的三年经验之后，开发去中心化的应用程序需要的不仅仅需要一个高速的区块链，它还需要能够为数百万并发用户提供可用体验的基础设施。在 steemit.com 的早期，用户期望提供自己(链上)的图像托管。这使得界面难以使用，容易出现图像破损。</p>
+
+<p><img src="https://github.com/BlockchainTranslator/EOS/blob/master/TechDoc/pics/introducing-eos.io-application-stack.png" alt="image" /></p>
+
+<p>With the EOS.IO software, we, at block.one, envision a world where block producers provide general purpose infrastructure that allows developers to build and deploy their applications without having to run any servers themselves. This includes applications as complex as <a href="https://steemit.com/">steemit</a>, <a href="https://dtube.video/">DTube</a>, and <a href="https://bitshares.org/">decentralized exchanges</a>.</p>
+
+<p>使用 EOS.IO 软件，我们在 block.one 设想了一个世界，其中区块生产者提供通用基础架构，允许开发人员在无需运行任何服务器的情况下构建和部署应用程序。 这包括像 <a href="https://steemit.com/">steemit</a>，<a href="https://dtube.video/">DTube</a> 和 <a href="https://bitshares.org/">decentralized exchanges</a> (去中心化交易所) 这样复杂的应用程序。</p>
+
+<h2 id="eosio-storageeosio-存储">EOS.IO Storage–EOS.IO 存储</h2>
+<p>EOS.IO Storage is a decentralized file system designed to give everyone in the world with Internet access the ability to permanently store and host legal files which are accessible by any browser. Unlike current alternatives, there are no fees for storage or bandwidth on EOS.IO Storage. Built on IPFS, EOS.IO Storage is a service provided by block producers for those who hold a blockchain’s native tokens. EOS.IO block producers will replicate and host token-holders’ files on the IPFS network as well as provide https endpoints allowing anyone with a browser to access the files.</p>
+
+<p>EOS.IO 存储是一种去中心化的文件系统，旨在为世界各地的互联网用户提供永久存储和托管任何浏览器可访问的合法文件的能力。与目前的替代方案不同，EOS.IO 存储没有存储或带宽费用。基于 IPFS，EOS.IO 存储是由区块生产者为持有该区块链的原生代币的用户提供的服务。EOS.IO 区块生产者将在 IPFS 网络上复制和托管代币持有者的文件，并提供允许任何人通过浏览器访问这些文件的 https 端点。</p>
+
+<p>Collectively the producers will reach consensus on how much storage they are willing to provide in exchange for their compensation (block rewards). Block producers who offer more storage for the same reward are likely to earn more votes from token holders.</p>
+
+<p>生产者们将共同就他们愿意提供多少储存以换取他们的补偿（区块奖励）达成共识。 为相同奖励提供更多储存空间的区块生产者可能会从代币持有者那里获得更多的投票。</p>
+
+<p>More information on EOS.IO Storage will be provided in a future update.</p>
+
+<p>有关 EOS.IO 存储的更多信息将在未来的更新中提供。</p>
+
+<h2 id="eosio-query-serviceseosio-查询服务">EOS.IO Query Services–EOS.IO 查询服务</h2>
+<p>In addition to hosting files, block producers will be expected to run API nodes that are able to query the blockchain database state on behalf of applications. These APIs will likely be a combination of Graph QL and custom Web Assembly based queries. This makes it trivial for applications to get the information they need without having to run and maintain their own scalable hosting services.</p>
+
+<p>除了托管文件外，区块生产者还将运行能够代理应用程序去查询区块链数据库状态的 API 节点。这些 API 可能是基于 Graph QL 和 自定义 Web 组件查询的组合。这使得应用程序无需运行和维护自己的可扩展托管服务就可以获得所需的信息。</p>
+
+<p>block.one will design and publish open source micro-services that block producers can deploy to map the blockchain database state into more traditional databases for the purpose of scaling read access, maintainability, and additional indexing. This software will facilitate application developers and block producers to build web applications that interact with traditional database APIs.</p>
+
+<p>block.one将设计和发布开源微服务，区块生产者可以部署该微服务将区块链接数据库状态映射到更传统的数据库中，其目的是为了扩展读访问能力，可维护性和附加索引。该软件将帮助应用程序开发人员和区块生产者构建与传统数据库 API 进行交互的Web应用程序。</p>
+
+<h2 id="resource-limits资源限制">Resource Limits–资源限制</h2>
+<p>Applications consume bandwidth, computation, and storage both on the blockchain and for the interface. Block producers will necessarily have to rate limit access to prevent abuse. This is accomplished for file downloading and API queries the same way bandwidth and CPU time is measured for blockchain updates. Users who hold a small amount of native tokens in a staking contract should be able to have a reasonable level of free access to most applications.</p>
+
+<p>应用程序在区块链和接口上都占用带宽，计算和存储。区块生产者必须通过访问限制来防止滥用。对于文件下载和 API 查询的访问限制是通过与测量区块链更新的带宽和CPU时间相同的方式来实现的。在股权合约中持有少量原生代币的用户应该在合理级别上享有对大多数应用程序免费访问的能力。</p>
+
+<p>The usage model will support balancing resource usage billing to either the individual users downloading the file or to the individual who uploaded it in the first place. This mirrors the model where websites pay to provide hosting but adds the flexibility of transparently moving the bill and rate limiting to the users who ultimately have control over their consumption. This is critical for bandwidth intensive applications like dtube.com .</p>
+
+<p>资源使用模型将支持在下载文件的个人用户和上传文件的用户之间平衡资源使用量的费用。这个模式复制了网站付费提供托管的模式，但增加了将账单和资源限制透明地转移到控制消费的用户的灵活性。这对于像 dtube.com 这样的带宽密集型应用程序至关重要。</p>
+
+<h2 id="custom-application-infrastructure定制应用基础架构">Custom Application Infrastructure–定制应用基础架构</h2>
+<p>block.one recognizes that there are limits to what kind of applications can be built using the general purpose infrastructure provided by block producers. Specifically, applications that require server-side rendering (e.g., steemit) or that require custom database indices maintained by custom micro-services (e.g., market history) may require custom server infrastructure hosted by the application developer or other parties. Developers of these applications can benefit from the same scalable architecture used by block producers to deploy their own customized API and Query Services. This will help developers rapidly bring scalable application infrastructure to market.</p>
+
+<p>block.one 认识到在区块生成者提供的通用基础架构上构建应用程序的局限性。具体来说，需要服务端渲染（如，steemit）或需要由定制微服务维护的自定义数据库索引（例如，市场历史）的应用程序可能需要由应用程序开发人员或其他托管方来定制服务器基础架构。这些应用程序的开发人员可以从被区块生产者用来部署自己的定制 API 查询服务的相同的可扩展架构中获益。这将有助于开发人员快速地将可扩展应用程序基础架构推向市场。</p>
+
+<hr />
+
+<h4 id="区块链中文字幕组">区块链中文字幕组</h4>
+
+<p>致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。</p>
+
+<p>如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。</p>
+
+<p><a href="https://github.com/BlockchainTranslator/EOS">点击查看项目GITHUB，及更多的译文…</a></p>
+
+<h4 id="本文译者简介">本文译者简介</h4>
+
+<p>抖抖，在读博士，专注区块链技术研究与行业分析，欢迎加微信号:jonas-meng</p>
+
+<p>本文由币乎社区（bihu.com）内容支持计划赞助。</p>
+
+<p>版权所有，转载需完整注明以上内容。</p>
+
+<hr />
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2017-10-11T00:00:00+08:00">October 11, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Introducing+eos.io+application+stack%20http%3A%2F%2Flocalhost%3A4000%2FIntroducing-EOS.IO-Application-Stack%2F" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2FIntroducing-EOS.IO-Application-Stack%2F" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http%3A%2F%2Flocalhost%3A4000%2FIntroducing-EOS.IO-Application-Stack%2F" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2FIntroducing-EOS.IO-Application-Stack%2F" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/EOS-Development-Sneak-Peek-for-Very-Early-Developers/" class="pagination--pager" title="Eos development sneak peek for very early developers
+">向前</a>
+    
+    
+      <a href="http://localhost:4000/The-meaning-of-decentralization/" class="pagination--pager" title="The Meaning Of Decentralization
+">向后</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/the-message-is-the-medium/" rel="permalink">The Message Is The Medium
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  14 分钟读完
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">The Message Is The Medium  信息即媒介
+
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/EOS-White-Paper-Digest/" rel="permalink">Eos White Paper Digest
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 分钟读完
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">﻿# EOS White Paper Digest 对EOS白皮书的摘要
+
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/a-proof-of-stake-design-philosophy/" rel="permalink">A Proof Of Stake Design Philosophy
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  9 分钟读完
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">A Proof of Stake Design Philosophy–权益证明设计哲学
+
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/10-reasons-to-buy-EOS-tokens-right-now/" rel="permalink">10 reasons to buy eos tokens right now
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 分钟读完
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">10 reasons to buy EOS tokens right now 现在购买EOS的十大理由
+
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/BlockchainTranslator"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2017 BlockchainTranslator Group. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,2110 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-10-27T00:52:51+08:00</updated><id>http://localhost:4000/</id><title type="html">BlockchainTranslator  </title><subtitle>In Blockchain We Trust.</subtitle><author><name>BlockchainTranslator  </name></author><entry><title type="html">The Message Is The Medium</title><link href="http://localhost:4000/the-message-is-the-medium/" rel="alternate" type="text/html" title="The Message Is The Medium" /><published>2017-10-22T00:00:00+08:00</published><updated>2017-10-22T00:00:00+08:00</updated><id>http://localhost:4000/the-message-is-the-medium</id><content type="html" xml:base="http://localhost:4000/the-message-is-the-medium/">&lt;h2 id=&quot;the-message-is-the-medium--信息即媒介&quot;&gt;The Message Is The Medium  信息即媒介&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文翻译自：https://steemit.com/eos/@iang/the-message-is-the-medium&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;原文作者: &lt;a href=&quot;https://steemit.com/@iang&quot;&gt;iang&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;译者：&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;区块链中文字幕组&lt;/a&gt; &lt;a href=&quot;https://github.com/shuke0327&quot;&gt;荆凯(shuke0327)&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译时间：2017-10-22&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;a-preliminary-message预备信息&quot;&gt;A Preliminary Message　预备信息&lt;/h2&gt;
+
+&lt;p&gt;This post introduces what I think is a fundamental flaw in almost all blockchain designs. In brief, it is the emphasis on state as the ‘atomic element’, when we could also build using messages instead. The implications of this are quite severe, but also quite hard to understand because the computer science concepts are a bit inaccessible to the non-CS world.&lt;/p&gt;
+
+&lt;p&gt;在这篇文章中介绍了我认为的几乎所有的 blockchain 设计中都存在的一个基础缺陷。简言之，这缺陷在于太过强调状态( state )作为（区块链的）”原子因素”，而我们也可以改用信息( message )来构建。 这一缺陷的影响很严重，但也很难理解，因为计算机科学的概念对于计算机科学世界以外的人来说，有些难以触及。&lt;/p&gt;
+
+&lt;p&gt;What follows is a very informal, non-rigourous description to try and explain the difference between messaging and state to the non-technical audience. I’ve tried to get the simple message across but if you find yourself in a state of confusion, there is another way to understand it and that is to watch this space - we’re going to build it, so then the message will be put to the medium. Enough bad analogies, let’s forge on.&lt;/p&gt;
+
+&lt;p&gt;下文是非常不正式、不严格的描述，我尝试对非技术型的读者解释清楚信息和状态之间的区别。我尝试尽量简单的传达信息，但如果你仍然感到困惑，还有另外一种方式去理解，即，观察此处的空间 - 我们要创建它，从而信息会发送至媒介。这类比够烂的，让我们继续前进吧。&lt;/p&gt;
+
+&lt;h2 id=&quot;whats-a-state-machine-anyway状态机是什么&quot;&gt;What’s a State Machine, anyway?　状态机是什么？&lt;/h2&gt;
+
+&lt;p&gt;A state machine is a &lt;a href=&quot;https://en.wikipedia.org/wiki/Finite-state_machine&quot;&gt;computer science invention&lt;/a&gt; to capture the reliable, deterministic machine. In words, it is a software “machine” that given some set of inputs and memory, always delivers the same outputs.&lt;/p&gt;
+
+&lt;p&gt;状态机是一个&lt;a href=&quot;https://en.wikipedia.org/wiki/Finite-state_machine&quot;&gt;计算机科学发明的一个概念&lt;/a&gt;，用来描述具有可靠性、 确定性的机器。换句话说，它是一台软件”机器”，给定一组输入和存储，会始终产生相同的输出。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://steemitimages.com/DQmaHQSpoii8AMJsdfynqbiRdpM1nT5hn7Q8ie587D5RM8g/Figure%201%20-%20The%20State%20Machine.png&quot; alt=&quot;Figure 1 - The State Machine.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Think about a vending machine, and the software inside, which has to simulate the hardware machine so as to figure out what to do next. In words, “if we are in State 1, wait for coin. If a coin turns up, enter State 2. If in State 2, wait for button push. If a button push turns up, deliver drink, go to State 1.” In essence then, our machine consists of some code to handle that algorithm, some state (memory) to recall where we are, and an ability to read incoming messages (coins, buttons) and write out some instructions as messages (drink!).&lt;/p&gt;
+
+&lt;p&gt;设想一台自动售货机和其中的软件用于模拟硬件机器，以决定下一步做什么。换句话说，”如果我们处于状态 1，等待投币。如果硬币出现，进入状态 2。如果在状态 2中，等待按钮按下。 如果按下按钮，提供饮料，转到状态 1。” 在本质上，我们的机器包含处理算法的代码，记录位置的状态(存储)，读取输入信息（硬币，按钮）和将指令作为信息(饮料)输出的能力。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://steemitimages.com/0x0/https://steemitimages.com/DQmNa2UbPMh9eirxS9bTt192aKqdR4QNEBdHxdKCjJPSjmY/Figure%202%20-%20a%20coke%20machine%20.png&quot; alt=&quot;Figure 2 - a coke machine .png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can also construct bigger state machines out of smaller ones - a database is essentially an enormous state machine, made up many little machines for each SQL table, each row and each cell. A protocol is a small state machine made of two state machines - one for each end. A blockchain is another enormous state machine, made of thousands of “full node” state machines with lots of hangers-on called SPV clients. While the essence of the design of a state machine is pretty simple, using them is as much an art as a science because we don’t have a great view on how to compose small state machines into large state machines. But we’ll leave aside that complexity for now.&lt;/p&gt;
+
+&lt;p&gt;我们也可以用小的状态机构造出大的状态机-数据库本质上就是一台庞大的状态机，由每个 SQL 表，每一行和每个单元格的小状态机组成。 协议也是一个小的状态机，由分布在协议两端的两个状态机组成。 Blockchain 是另一个巨大的状态机，由数以千计的”完整节点”状态机，以及大量叫做 SPV 客户端的附属节点组成。虽然状态机设计的本质很简单，但使用起来却既是一门艺术也是一门科学，因为对于如何将小的状态机组成大型状态机，我们并没有很好的见解。不过我们暂时先忽略这种复杂性。&lt;/p&gt;
+
+&lt;h2 id=&quot;choice选择&quot;&gt;Choice　选择&lt;/h2&gt;
+
+&lt;p&gt;It turns out that there are two fundamental approaches to building a state machine.&lt;/p&gt;
+
+&lt;p&gt;构建一个状态机，有两种基本方法。&lt;/p&gt;
+
+&lt;p&gt;Note, what follows is a very stylised viewpoint, not a rigorous one. We ignore the code above, and just assume it is referenced wherever needed. We also ignore the output messages, for simplicity. Our goal is to get you to a state of understanding the message, not to impress CS geeks.&lt;/p&gt;
+
+&lt;p&gt;注意，以下是非常具有个人色彩的观点，并非严格表述。我们忽略了上面提到的代码，只要假设在需要的地方它被引用到了。为了简单起见，我们也忽略掉输出信息。我们的目标是让你能够理解信息，而非为了讨好电脑geeks.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://steemitimages.com/DQmVzThtGykmgAQoi3GA7a87cuakCd2DqfRxdc5X4Dyfuj6/Figure%203%20-%20timeline%20of%20transitions%20.png&quot; alt=&quot;Figure 3 - timeline of transitions .png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We normally model the state machine as above - it starts out in State One, and then Message 1 arrives. The processing of this message causes a transition from State One to State Two. On transitioning to State 1, the machine sends out messages, although that is strictly optional - it depends on the machine’s needs at that transition.&lt;/p&gt;
+
+&lt;p&gt;通常我们对状态机的建模如上所示 – 从状态一开始， 然后信息1 到达。 处理信息，会从状态1转变为状态2。在转变过程中，状态机发出信息，是否发送信息是可选的 - 取决于状态机在状态变化时的需要。&lt;/p&gt;
+
+&lt;p&gt;Our job in building the state machine is to write the code to store and transition all states for all known messages. It turns out that, in doing this job, there are two fundamentally different ways in which to write the machine, and the choice of which colours our thinking, our design and eventually our capabilities.&lt;/p&gt;
+
+&lt;p&gt;构建状态机时，我们的工作是编写代码来存储所有的状态，以及根据所有的已知信息来变更全部的状态。结果是，在做这件事的时候，有两种从根本上不同的方法去写状态机，选择哪种方法，会影响到我们的思考，我们的设计，最终影响到我们的能力(capabilities)。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;First Way: Thinking of it as a machine of states. In this view, we store State One. Then, when the message arrives, the machine turns over to State Two, and we store that new state. Repeat! Think of the states as the Blue Circles above, and you can ignore any other view of the world.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;第一种方式: 将其视作一台状态机。在这一观点中，我们存储状态1。 当信息到达时，状态机切换到状态2，我们存储新的状态。重复上述过程！将状态看作是上图中的蓝色的圆圈，你可以忽略掉世上所有其它不同的观点。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Second Way: Thinking of it as a machine of messages. In this alternate view, we record the messages. We always start the machine at State One. Then we pump all of the incoming messages (Red Pills above) into the machine (and out pops any new messages). We store the messages, but don’t bother with the state, because we can calculate it any time.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;第二种方式: 将其视作一台信息的机器。在这一替代观点中，我们把信息记录下来。 我们仍然从状态1开始状态机。然后把所有输入的信息(上图中红色的标签)传入到机器中（并且将所有的新信息传出）。 我们存储信息，而不用为状态分神，因为我们可以随时计算出。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;These views are mostly equivalent in theory, and the trick to understanding this is that the machine is deterministic. Once we’ve established the machine as being exact and unforgiving in its actions, we know that for example M1 on State1 always results in State2 (and M2 out).&lt;/p&gt;
+
+&lt;p&gt;这些观点在理论上是大致等效的，要理解这一点关键在于知晓状态机是具有确定性的。一旦我们确立了机器的运行是精确无差错的，我们就可以知道，例如，状态1 叠加信息 M1 总是会得到 State2的结果（并输出信息M2）。&lt;/p&gt;
+
+&lt;p&gt;Then, if we have the machine, and we have the set of messages, we can always roll it again to get the states. OR, if we have recorded the states, we can always walk the chain of states to reproduce the action, although we don’t necessarily know what messages caused that journey. If you like your graphs, you could think of the distinction as storing the nodes OR storing the edges.&lt;/p&gt;
+
+&lt;p&gt;然后，如果我们有这台机器和一组给定的消息，我们总是可以运行机器，得到相同的状态。或者，如果我们记录了状态，我们总是可以按照状态的链条运行，重现状态机的动作，虽然我们没有必要知道这一过程是由什么信息导致的。如果你喜欢图（graphs），那么可以将（状态和信息的）这种区别看作是存储图的节点或者存储边界的区别。&lt;/p&gt;
+
+&lt;p&gt;We have a choice about how we think about things. And, depending on our desires and assumptions, we are likely to prefer one way or the other: databases are seen as machines of state, as is a light switch - it knows whether it is on or off, but doesn’t know how it got to where it is now. Whereas protocols are typically thought of more as machines of messages; consider an email exchange in which the last message doesn’t tell you all the story, and if it’s been a while you might have to scan all the previous messages in thread to work out what’s happening.&lt;/p&gt;
+
+&lt;p&gt;我们可以选择思考事物的方式。并且根据我们的愿望和设想，我们有可能青睐一种方式或其他： 数据库被视作状态机，正如电灯的开关-它知道是否它是打开还是关闭，但不知道它是如何成为现在的状态的。而协议则更经常被认为是信息的机器；思考一下在邮件交流中的情形，最后一条消息不会告诉你所有的故事，需要花费时间去查看之前的所有信息，才能知道发生了什么事情。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://steemitimages.com/0x0/https://steemitimages.com/DQmPHQnxJ6XLRRsCKGJL3BTZWpPvL7SKr95pFUNEd83wqn4/photo.png&quot; alt=&quot;photo.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;wheretofore-the-machinery-of-blockchain&quot;&gt;wheretofore the machinery of blockchain?&lt;/h3&gt;
+&lt;h3 id=&quot;当前区块链的机制是什么&quot;&gt;当前区块链的机制是什么？&lt;/h3&gt;
+
+&lt;p&gt;That’s in theory - practice can be different. Your online bank account is presented as a machine of state, with balance being told to you. But inside the bank, use of double entry accounting makes it more a machine of messages.&lt;/p&gt;
+
+&lt;p&gt;这是就理论而言 — — 实践可能有所不同。你的网上银行账户表现得像一台状态机，会告知你账户的余额。但在银行内部，对复式记帐会计法的使用让它更像一台信息机。&lt;/p&gt;
+
+&lt;p&gt;What should blockchain do?&lt;/p&gt;
+
+&lt;p&gt;区块链该如何做？&lt;/p&gt;
+
+&lt;p&gt;For reasons that might be historical, or maybe because it’s more typical for designers to think this way, blockchains are seen as machines of state, and not as machines of messages:&lt;/p&gt;
+
+&lt;p&gt;可能由于历史原因，或者可能因为这种方式对设计者而言更为典型，区块链被视作是一台状态机，而非信息机:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;… The goal of a blockchain is to represent a single state being concurrently edited. In order to avoid conflicts between concurrent edits, it represents the state as a ledger, that is as a series of transformations applied to an initial state. These transformations are the “blocks” of the blockchain, and — in the case of Bitcoin — the state is mostly the set of unspent outputs.(my emphasis) LM Goodman, “Tezos: A Self-Amending Crypto-Ledger Position Paper”, 2013&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;……区块链 的目标是表现一个正在被并行编辑的单一状态。 为了避免并行编辑中的冲突，它将状态表述为分类总账，即作用在初始状态上的一系列变化。 这些变化是区块链上的”块”，在比特币中，状态主要是未花费的输出的集合(这段强调是我加的）LM Goodman, “Tezos: A Self-Amending Crypto-Ledger Position Paper”, 2013&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Or, from a recent Ethereum replacement project:&lt;/p&gt;
+
+&lt;p&gt;或者，在最近的一个旨在取代 Ethereum 的项目中的表述：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;How do transaction semantics fit into our description of contracts? From the process level, a transaction is an acknowledgment that a message has been “witnessed” at a channel.Messages themselves are virtual objects, but the pre-state and post-state of a contract, referring to the states before and after a message is sent by one agent and witnessed by another, are recorded and timestamped in storage, also known (in a moral sense) as the “blockchain”.Message passing is an atomic operation. Either a message is witnessed, or it is not, and only the successful witnessing of a message qualifies as a verifiable transaction that can be included in a block.(author’s emphasis in bold, my emphasis in italics) anon?, “RChain Architecture - Contract Design”, 2017 RChain Cooperative&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;描述交易的语义学表述如何与我们对合约的描述相结合？从处理的层面看，交易是对消息在某个渠道已被”见证”的确认。消息本身是虚拟对象。某个代理发送信息，由另外的代理见证信息，信息打上时间戳记录在存储系统中– 即为人们所知的”区块链“上，这一过程前后的状态，就是合约的前状态和后状态。信息的传递是原子操作。无论信息是否得到见证，只有对信息的成功见证才有资格作为可信的交易被记录到区块中。（原作者的重点强调以粗体显示，我的重点用斜体表示）匿名？，“RChain Architecture - Contract Design”, 2017 RChain Cooperative&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Note how the author above has established everything we need to store the message as transaction, and then fallen back to blockchain canon of state.&lt;/p&gt;
+
+&lt;p&gt;请注意上述作者的观点，（他们认为）我们需要做的所有事情是将信息作为交易存储，然后回到区块链上，记录状态。&lt;/p&gt;
+
+&lt;p&gt;If we look at the Bitcoin state machine in Figure 4 below for another example, we can see this state view writ large in the UTXO model, which groups transactions as collections of Unspent Transaction Outputs(“UTXO”). The transaction is a record of state that includes the input, andthe output. Comparing to Figure 3 above, think of both of the blue circles in each record, but none of the messages. Normally each UTXO transaction is represented as a box with a column of inputs on the left, and outputs on the right, Figure 4:&lt;/p&gt;
+
+&lt;p&gt;我们来看另一个例子，在下面图4中的比特币状态机器，我们可以在 UTXO 的模型之中可以很明显的见到这一关于状态的设计观点，UTXO模型将交易归类为未消费的交易输出(“UTXO”) 的集合。交易记录了包含了输入和输出的状态。与上面图 3比较，思考一下两张图中的存在于每条记录之中的蓝色框，不用考虑信息。通常每个 UTXO 交易表示为一个盒子模型，左边列出输入，右边列出输出，如图4：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://steemitimages.com/DQmWr7y9f3P8zKUANhdB9EuF82ZfFwsZRvavmo7UrwifsZU/Figure%204%20-%20the%20UTXO%20or%20Unspent%20Transaction%20Outputs%20model%20.png&quot; alt=&quot;Figure 4 - the UTXO or Unspent Transaction Outputs model .png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On the input (left) side of each transaction is a list of references to prior outputs or “coins”, by which presence they are then spent, and on the output (right) side is another matching list of new coins, by which presence they are now created and spendable in the future. Above, “Transaction 1” creates a 0.5BTC coin as an output, and “Transaction 2” spends the 0.5BTC coin by citing it as an input.&lt;/p&gt;
+
+&lt;p&gt;每笔交易的输入侧（左侧）是对之前的输出或”币”的引用列表，表示它们已经花费了，输出侧（右侧）是另外一个相匹配的新币列表，表示新币已经创建，可以用于未来消费。在上面图中，”交易 1”创建了 0.5BTC 作为输出，”交易 2”引用这个输出作为它的输入，花掉 0.5BTC .&lt;/p&gt;
+
+&lt;p&gt;The Bitcoin transaction record, as a record of both inputs and outputs, is like a miniature balance sheet; the inputs match the outputs. For the visually minded, each of these transaction records is also like lego blocks in that new ones must plug onto old ones, and provide for newer ones to plug into them in the future.&lt;/p&gt;
+
+&lt;p&gt;比特币交易记录，同时记录了输入和输出，就像一个微型的资产负债表一样; 输入与输出相匹配。对视觉思考者来说，可以把每个交易记录视作乐高块，每个新的乐高块必须插到旧的块上，并且让更新的乐高块能够插到它上面。&lt;/p&gt;
+
+&lt;h2 id=&quot;the-brittleness-of-the-utxoutxo-的脆弱性&quot;&gt;The Brittleness of the UTXO（UTXO 的脆弱性）&lt;/h2&gt;
+
+&lt;p&gt;Now, it has been observed before, but it is worth repeating: the Bitcoin design is of an extraordinary design, but one of its facets is that all of the components are strongly linked to each other in a very dependent way. As it says:&lt;/p&gt;
+
+&lt;p&gt;在前面你已经看过了，但现在仍值得重复: 比特币的设计非同凡响，但是有一点，即比特币中所有的组块都以一种依赖性很强的方式彼此链接。 正如白皮书中所说：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution.”Satoshi Nakamoto, “Bitcoin: A Peer-to-Peer Electronic Cash System,” 2008.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+
+  &lt;p&gt;“纯粹的点对点的电子现金实现版本，允许在线支付，无须经过金融机构，直接从一方发送到另一方”。中本聪，”比特币:-点对点电子现金系统，”2008年。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The mission was the money, but the money is also the driver for the security model, by means of paying miners to compete to validate. This powerful facet of intra-dependency does have one weakness - it is brittle in architectural terms. By this, I do not mean that Bitcoin is about to fall apart at any moment, but rather, if we change one design element, it threatens the sanctity of the entire architecture.&lt;/p&gt;
+
+&lt;p&gt;比特币的使命是成为金钱，钱也是安全模型的驱动力，借助给矿工支付的方式使矿工竞争挖矿，以完成交易的验证。内部依赖性这一强大的特性存在一个弱点 – 用建筑学术语来讲叫做脆弱性（brittle）。我这样讲并不是指比特币会随时崩溃，而是，如果我们更改其中一个设计元素，就会威胁到整个架构的神圣性。&lt;/p&gt;
+
+&lt;p&gt;And so it is with the UTXO. As mentioned, the mission of Bitcoin was a money. Every (full) node needs to have each record of the money available for it, so it can validate every incoming transaction, and proceed to distribute the transactions into its proposed block for mining. In contrast, SPV or remote clients need to have an easy way of proving just their component of incoming coins, without dragging in the whole chain.&lt;/p&gt;
+
+&lt;p&gt;UTXO 也是如此。 如上所述，比特币的使命是成为货币。 每个（完全）节点需要有可用的比特币的所有记录，因此可以验证每笔传入的交易，并继续分发到备用区块中供挖矿计算。 相反，SPV 或远程客户端需要有简单的方法，只需要证明他们接收的那部分币，而不需要将整个区块链都拖下来。&lt;/p&gt;
+
+&lt;p&gt;These two requirements are in conflict. Because there are a lot of records in a big chain like Bitcoin, the UTXO layout is an elegant design that meets both those requirements with a reasonable efficiency given its other impacts. It is very good at providing the proof that a client needs at a point in time.&lt;/p&gt;
+
+&lt;p&gt;这两项要求有冲突。在像比特币这样的大型区块链上，存在大量的记录， UTXO 的布局设计优雅，虽然有其它影响，但是能够以一种合理的效率满足两者的要求。它非常善于提供给客户端在某个时间点上所需要的交易证明。&lt;/p&gt;
+
+&lt;h2 id=&quot;an-order-book交易委托账本&quot;&gt;An Order Book　交易委托账本&lt;/h2&gt;
+
+&lt;p&gt;But what happens to the UTXO when the requirements change? Let’s say we want to do trading. For various reasons, the best way to do this is to bring everyone together, construct an order book - a list of bids to buy versus a list of offers to sell - and then run an auction clearing process to find the best price for all traders. There are other ways of course, but this is both the time-tested way and the way imposed by exchanges. Figure 5.&lt;/p&gt;
+
+&lt;p&gt;但如果要求变化了，UTXO 会发生什么？ 假设我们想进行交易。由于种种原因，最好的办法是把所有人集中，构建委托账本-包含竞价买单列表和一个卖单报价列表，然后运行拍卖清算过程，为所有的交易者找出最合适的价格。 当然，还有其他方法，但这才是经过时间检验，也是交易所在用的方法。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://steemitimages.com/0x0/https://steemitimages.com/DQmUwEnvb2VpmszQsXycXZmkT5yFatfFsEcCSsv6eT9zNeM/Figure%205%20-%20the%20Blue%20Pill%20Trading%20Book%20of%20State%20.png&quot; alt=&quot;Figure 5 - the Blue Pill Trading Book of State .png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In coming together in a UTXO state machine, an unknown number of people want to bid for positions on the buy side, as do an unknown number of people on the sell side. The UTXO design cannot easily facilitate this design for two reasons: 1. the interaction of many unknowns competing for one result does not scale because the entire layout needs to be negotiated on the fly - inputs, outputs and prices! - between the competing traders; and 2. trading is information sensitive - if there is a way to pull out of the negotiation and collapse it, traders will do that once they’ve spotted your position. This is a fundamental contradiction!&lt;/p&gt;
+
+&lt;p&gt;在 UTXO 状态机的撮合交易中，在买入侧有未知数量的买家出价竞争，在卖出侧，卖家的数量也是未知的。UTXO 设计不能轻易简化这种设计有两个原因: 1. 诸多未知的参与者相互竞争得到一个结果，这种互动难以规模化，因为总体布局需要运行时协商决定 - 输入，输出以及价格！ -在竞争的贸易者之间; 和 ２. 交易是信息敏感的 — 如果有方法可以退出谈判让谈判崩溃，交易者一旦确认了你的位置，就会这么做。这是个基本矛盾。&lt;/p&gt;
+
+&lt;p&gt;A messaging flow can handle this conundrum easily. If the blockchain intermediator (the miner in a PoW design, or the producer in DPOS) receives a steady series of messages for bids and offers, he simply collects them up in order and hands them to the “book contract” which internally constructs the book, decides on the swap price, and sends new messages out confirming the contract’s outcome.&lt;/p&gt;
+
+&lt;p&gt;消息流可以轻松处理这个难题。如果区块链的中间人（在 PoW 设计中的矿工，或者 DPOS 机制之中的区块生产者），收到稳定的出价和要价信息，他只需要按顺序收集信息，将其传递给 “交易委托账本合约”，在合约内部构建委托账本，确定掉期价格，发送新的信息，确认合约的结果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://steemitimages.com/0x0/https://steemitimages.com/DQmNzTscBAsyDuG1p4wPdg4TbzhpuvPDzttjDyxcVHcCKcv/Figure%206%20-%20the%20Red%20Pill%20Trading%20Book%20of%20Messages.png&quot; alt=&quot;Figure 6 - the Red Pill Trading Book of Messages.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The messages are logged, but the state (e.g., UTXO) is implied, which means it is constructed by the computer internally, and then (can be) thrown away. As long as the blockchain has decided on the strict set of messages - both which messages and in what order - the result is deterministic because every other node runs the same contract for each set of the same input messages, and concurs on the output messages.&lt;/p&gt;
+
+&lt;p&gt;消息会被记录，但状态 (例如，UTXO) 只是隐含其中，意味着它在计算机内部构造，然后（可以）被丢弃。只要区块链决定了严格的信息集合 – 包括有哪些信息，以及信息的顺序 - 结果就是确定的，因为任何其他节点对每一组相同的输入消息运行同一合约，都会得到同样的输出信息。&lt;/p&gt;
+
+&lt;p&gt;Two more advantages: if any incoming trades are dropped in this block they can simply be deferred to the next block. That’s because the incoming messages are independent intents to trade whenever, whereas the inputs and outputs making the UTXO state are more constrained to being parts of their dependent collection that should happen now, inside that very transaction.&lt;/p&gt;
+
+&lt;p&gt;两个额外的好处： 如果任何传入的交易在此区块中被丢弃，可以仅仅将它们推迟到下一个区块中就可以了。 因为输入的信息是独立于交易的，然而任何时候组成 UTXO状态的输入和输出更受限制，必须是所属的特定交易之中的依赖性集合的一部分。&lt;/p&gt;
+
+&lt;p&gt;Secondly. This construct captures much more of the problem of the trading book. That is, when you want to trade with me, or I with you, we both write our bid/offer as a message and send it in. The hard part is done inside the contract, and the smart contract author has covered that in her design. In contrast, with the UTXO construct, it is you and I that have to lay out the blue box in Figure 5, agree on everything, sign off and then submit it for consensus. UTXO leaves the hard part to us the traders, and the easy part - logging the fact - to the chain.&lt;/p&gt;
+
+&lt;p&gt;第二, 这一结构更能够捕获到更多交易账簿的问题。就是说，如果你想与我交易，或者我与你交易，我们都需要将自己的投标作为信息发送。 困难的部分在合同内部完成，智能合约的作者在设计时候就已经覆盖了这一情况了。 与此相反的是，UTXO 的结构中，我们必须按照图片五的蓝色盒子那样，就所有的一切达成一致，签名，然后提交达成共识。 UTXO把困难的部分留给我们交易者，而把容易的部分 - 记录事实 - 交给区块链。&lt;/p&gt;
+
+&lt;p&gt;As an exercise, you might like to examine how you would handle fees in both designs.&lt;/p&gt;
+
+&lt;p&gt;给你留个练习，你可以试试看在两种设计中如何处理交易费用。&lt;/p&gt;
+
+&lt;h2 id=&quot;slight-demurral小的反驳&quot;&gt;Slight Demurral　小的反驳&lt;/h2&gt;
+
+&lt;p&gt;It’s not all one way - the state model has the benefit of trapping bugs more quickly. Every transaction has to be perfectly in agreement in its recorded state, not just the messages that got us there. This ability to trap errors quickly could be seen as a major advantage in reconciliation of trades, which the banking sector is looking at for cost and operational risk reduction.But even this could be a choice of risks - when a bug turns up in a blockchain, the chain quickly breaks and forks.&lt;/p&gt;
+
+&lt;p&gt;不是只有一种方法 — — 状态模型的优点是捕获 bug 的更快。每一笔交易都需要完美的达成共识记录状态，而不只是让我们达成状态的信息。 交易要达成一致，捕获错误的能力可以被视作主要的优势，银行业正在寻求降低运行成本和业务风险的方式。但是即使这种选择也是有风险的- 当错误出现在区块链上时候，区块链会迅速的断裂和分叉。&lt;/p&gt;
+
+&lt;p&gt;Everything stops while nodes argue and hash. When a bug hits a message-model chain, the bug is implicit, and for the most part generates a dispute between parties over the meaning of the messages. Persons impacted can take it offline; including, we could develop the proofs to watch the issue offline, or ex-chain.&lt;/p&gt;
+
+&lt;p&gt;当bug出现在信息模型下的区块链时，bug是隐性的，大多数情况下在各方之间就信息的意义产生分歧。受影响的人可以脱机处理；包括，我们可以开发出证明机制，可以在脱机状态或者链外观察所涉事项。&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion结论&quot;&gt;Conclusion　结论&lt;/h2&gt;
+
+&lt;p&gt;The messaging model is for many reasons superior to the state model for the purpose of building broadly capable blockchains. It’s not all one way - the state model has the benefit of trapping breaks more quickly.&lt;/p&gt;
+
+&lt;p&gt;就构建能力更强的区块链这一目的而言，信息模型出于诸多原因，比状态模型要更有优势。不是只有一种办法 - 状态模型在更快捕获异常方面具有优势。&lt;/p&gt;
+
+&lt;p&gt;A fuller post would list all the pros and cons, but for now, we’ll just call out one major pro. Other than the flexibility of the above example, messaging chains can reach much higher performance. For example, Bitshares and Steem by &lt;a href=&quot;https://steemit.com/@dantheman&quot;&gt;@danthemamn&lt;/a&gt; were all built on this model, and show 1000s of transactions per second. As was my Ricardo system, albeit non-blockchain, but it explains why it is so easy for me to like :-)&lt;/p&gt;
+
+&lt;p&gt;一个完整的帖子会列出来所有利弊，但是暂时我们只列出了一个主要的优势。除了上面例子之中的灵活性之外，信息链可以得到好得多的表现。 例如，由&lt;a href=&quot;https://steemit.com/@dantheman&quot;&gt;@dantheman&lt;/a&gt;创建的Bitshares和Steem，都是构建在信息模型之上，可以每秒处理1000多次交易。就我所创建的Ricardo 系统而言，尽管非区块链，但是可以解释为何它如此容易，如此讨我喜欢：）&lt;/p&gt;
+
+&lt;p&gt;On paper at least, this approach promises much higher performance, and you can possible see a hint that EOS will be built this way too! Indeed, it was the need for speed in those systems that led designer &lt;a href=&quot;https://steemit.com/@dantheman&quot;&gt;@dantheman&lt;/a&gt;and myself to the discovery that, with apologies to Marshall McLuhan,&lt;/p&gt;
+
+&lt;p&gt;至少在论文之中，这一路径承诺了更好的性能，你可以看到可能EOS也会按照这种方式来构造。实际上，正是出于对系统速度的要求，让 EOS　的设计者[@dantheman][3]和我能够发现（对不住了，Marshall McLuhan）：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;the message is the medium.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;信息即媒介&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。&lt;/p&gt;
+
+&lt;p&gt;如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;点击查看项目GITHUB，及更多的译文…&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+
+&lt;p&gt;荆凯，程序员，坚信区块链将会改变潮水的方向。欢迎加微信: shuke0327，或者关注公众号: 增长之道&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;
+
+&lt;hr /&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">The Message Is The Medium 信息即媒介</summary></entry><entry><title type="html">Eos White Paper Digest</title><link href="http://localhost:4000/EOS-White-Paper-Digest/" rel="alternate" type="text/html" title="Eos White Paper Digest" /><published>2017-10-21T00:00:00+08:00</published><updated>2017-10-21T00:00:00+08:00</updated><id>http://localhost:4000/EOS-White-Paper-Digest</id><content type="html" xml:base="http://localhost:4000/EOS-White-Paper-Digest/">&lt;p&gt;﻿# EOS White Paper Digest 对EOS白皮书的摘要&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文翻译自：https://steemit.com/eos/@vitkolesnik/eos-white-paper-digest&lt;/p&gt;
+
+  &lt;p&gt;译者：&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;区块链中文字幕组&lt;/a&gt; &lt;a href=&quot;https://github.com/weixin1993&quot;&gt;林炜鑫&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译时间：2017-10-21
+https://steemitimages.com/DQmafheTXv6z8UKHzRKTRuABjTPbKRtmnq2BknQDeKDueKb/152258-eos.jpg&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Probably you’ve already heard about EOS, a blockchain project of Steemit confounder Dan Larimer, and asked yourself how exactly it differs from other blockchains. Especially if you think about investing in EOS ICO or building apps on it. The best answers yet given can be found in &lt;a href=&quot;https://github.com/EOSIO/Documentation/blob/master/TechnicalWhitePaper.md&quot;&gt;EOS Technical White Paper&lt;/a&gt;, but if you aren’t prepared to read the whole of it (about 47 000 characters), then this post is for you.&lt;/p&gt;
+
+&lt;p&gt;很可能你已经听说过一个Steemi创始人Dan Larimer刚创立的项目——EOS，并对它与其他区块链项目的不同之处表示疑惑。尤其是你想投资EOS的ICO或者在链上创立应用的话。最好的答案你能够在EOS的白皮书里找到，不过如果你还没有准备好阅读白皮书全文（大概47000字数），那么这篇摘要很适合你阅读。&lt;/p&gt;
+
+&lt;h2 id=&quot;basic-characteristics-基本特征&quot;&gt;Basic Characteristics 基本特征&lt;/h2&gt;
+
+&lt;p&gt;EOS is a blockchain in production meant to be an operating system for decentralized apps. It will be capable of supporting millions of users and is built for apps as big as Facebook, Uber, AirBnB, or Ebay. It will be free for end users with no transactions fees, unlike Bitcoin and Ethereum. It will be lightning fast and able to compete by performance with non-blockchain apps. It will be easy to upgrade and the upgrades won’t result in blockchain forks, again unlike it’s the case with Bitcoin and Ethereum.&lt;/p&gt;
+
+&lt;p&gt;EOS是一个为了给分布式应用提供操作系统的区块链产品。它能够支持百万级用户并为类似Facebook, Uber, AirBnB, 或者 Ebay 这么大体量的应用程序提供操作系统。不同于比特币和以太坊，它将是免费提供给终端用户并且不收取交易费用。它将是闪电般的快速，并且能够通过与非区块链应用程序的性能竞争。与比特币和以太坊不同的是，它很容易升级并且它的升级不会导致区块链分叉。&lt;/p&gt;
+
+&lt;h2 id=&quot;consensus-一致性&quot;&gt;Consensus 一致性&lt;/h2&gt;
+
+&lt;p&gt;EOS software uses &lt;a href=&quot;https://steemit.com/dpos/@dantheman/dpos-consensus-algorithm-this-missing-white-paper&quot;&gt;Delegated Proof of Stake&lt;/a&gt; (DPOS) consensus algorithm as the only one capable to meet the the performance requirements. It means EOS token holders vote for block producers which don’t compete for blocks but rather cooperate.&lt;/p&gt;
+
+&lt;p&gt;EOS软件使用授权的股份(DPOS)共识算法作为唯一能够满足性能需求的算法。这意味着EOS令牌持有者将投票支持那些不参与区块链竞争而是彼此合作的区块生产商。&lt;/p&gt;
+
+&lt;p&gt;In case of a software fork the longest chain branch will be chosen automatically, so a blockchain fork can’t happen.&lt;/p&gt;
+
+&lt;p&gt;面临软件分叉时，最长的链分支将会自动被选中，所以区块链分叉将不会分生。&lt;/p&gt;
+
+&lt;h2 id=&quot;accounts-账户&quot;&gt;Accounts 账户&lt;/h2&gt;
+&lt;p&gt;All EOS accounts have human readable names chosen by the account creator, like in Steem blockchain. There will be also namespaces like @user.domain available for @domain account owners.&lt;/p&gt;
+
+&lt;p&gt;就像在Steem区块链中一样，所有EOS账户都是由账户创建者选择的人类可读的名字。同样的，这也会有名称空间像@@user.domain提供给@domain账户所有者。&lt;/p&gt;
+
+&lt;p&gt;The account creation fees (which are promised to be insignificant) will be paid by app developers. (That‘s why, if you plan to create EOS based apps, it’s important to get as much EOS tokens as possible.)&lt;/p&gt;
+
+&lt;p&gt;账户创建费（EOS承诺将是微不足道的）将会付给应用程序开发者。（这就是如果你要基于EOS开发应用程序，你要尽可能多获得EOS令牌的原因。）&lt;/p&gt;
+
+&lt;p&gt;Accounts and scripts can exchange messages and this is how smart contracts will be defined.&lt;/p&gt;
+
+&lt;p&gt;账户和脚本能够自动交换消息，这就是智能合约的定义。&lt;/p&gt;
+
+&lt;h2 id=&quot;security-安全性&quot;&gt;Security 安全性&lt;/h2&gt;
+
+&lt;p&gt;EOS implements sophisticated permission management and multi user control over funds which is the best defence against hacking.&lt;/p&gt;
+
+&lt;p&gt;EOS实现了复杂的权限管理和对资金的多用户控制，这是防范黑客攻击的最佳防御手段。&lt;/p&gt;
+
+&lt;p&gt;Sensitive actions could have a mandatory delay defending account owners against key theft. Advanced account recovery will provide protection even if the keys are stolen.&lt;/p&gt;
+
+&lt;p&gt;敏感的机制设计会有一个强制性的延迟，来保护账户所有者不受密钥盗窃的影响。即使密钥被盗，先进的帐户恢复也会提供保护。&lt;/p&gt;
+
+&lt;h2 id=&quot;tokens-代币&quot;&gt;Tokens 代币&lt;/h2&gt;
+
+&lt;p&gt;The EOS blockchain will be resource constrained. There are 3 types of resources in EOS — bandwidth and log storage, CPU, and RAM. Resources allocated to apps will be measured in tokens directly and so will be independent on token price volatility. Block producers will be paid in tokens and will spend these for better equipment increasing the network performance.&lt;/p&gt;
+
+&lt;p&gt;EOS区块链将会受到资源的限制。在EOS中有三种类型的资源——带宽和日志存储、CPU和RAM。分配给应用程序的资源将直接用代币来衡量，因此将独立于代币价格波动。区块开发者将获得代币支付并利用它们购买更好的设备，为了提升整个网络性能。&lt;/p&gt;
+
+&lt;p&gt;3 community benefit apps will be chosen by user votes to receive a percentage from new annual token supply which could be capped to 5%.&lt;/p&gt;
+
+&lt;p&gt;用户将会投票选出3款社区福利应用程序，它们能够在新的年度中获得一定比例的代币供应份额，这个比例将是5%。&lt;/p&gt;
+
+&lt;h2 id=&quot;governance-治理&quot;&gt;Governance 治理&lt;/h2&gt;
+&lt;p&gt;Governance is the process of reaching consensus in cases when no software algorithms can help.&lt;/p&gt;
+
+&lt;p&gt;治理是指在没有软件算法能起效的情况下达成共识的过程。&lt;/p&gt;
+
+&lt;p&gt;The source of power in EOS are the token holders and this power is delegated by them to block producers. If block producers refuse to implement necessary changes proposed by token holders, they can be voted out.&lt;/p&gt;
+
+&lt;p&gt;EOS的影响力是来自令牌持有者，并且这个影响力将由它们授权给区块链开发者。如果区块链开发者拒绝使用令牌持有者们提出的必要改变，他们将会被投票出局。&lt;/p&gt;
+
+&lt;p&gt;EOS is enabled to have a constitution, i.e. a p2p contract among its users, and a hash of its current version will be included in every transaction.&lt;/p&gt;
+
+&lt;p&gt;EOS能够形成一个宪法即用户之间的p2p协议，而在每一笔交易中，当前版本的一个散列函数将会被包含进去。&lt;/p&gt;
+
+&lt;p&gt;The constitution and the EOS protocol can be updated if at least 17 of 21 block producers maintain approval of it during 30 days. Another 30 days approval will be needed to implement the changes. So non-critical fixes will take 1-2 months and important forks about 2-3 months. Emergency bugs will be fixed immediately and glitchy apps will be freezed without affecting the whole blockchain.&lt;/p&gt;
+
+&lt;p&gt;如果21个区块开发者中，至少有17个在30天内保持对其的同意，则社区宪法和EOS协议将可以升级。接下来还需要30天的同意来部署这一改变。因此，非关键的修复需要1-2个月的时间，重要的软件分叉则大约需要2-3个月。紧急漏洞会被立刻修复。在不影响整个区块链的情况下，关键性应用程序将被冻结。&lt;/p&gt;
+
+&lt;h2 id=&quot;thank-you-for-reading-feel-free-to-share-ideas-and-information-related-to-eos-in-comments&quot;&gt;Thank you for reading! Feel free to share ideas and information related to EOS in comments!&lt;/h2&gt;
+
+&lt;h2 id=&quot;谢谢你的阅读欢迎你在评论区自由地分享关于eos的想法和资讯&quot;&gt;谢谢你的阅读！欢迎你在评论区自由地分享关于EOS的想法和资讯&lt;/h2&gt;
+&lt;h2 id=&quot;credits-感谢&quot;&gt;Credits 感谢&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://unsplash.com/photos/IHKBF23A_iw&quot;&gt;Photo by paul morris&lt;/a&gt; on Unsplash&lt;/p&gt;
+
+&lt;p&gt;图片是来自paul morris在Unsplash平台上发布&lt;/p&gt;
+
+&lt;h2 id=&quot;related-posts-相关文献&quot;&gt;Related posts 相关文献&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://steemit.com/eos/@vitkolesnik/how-to-buy-and-claim-eos-tokens-a-step-by-step-tutorial&quot;&gt;How to buy and claim EOS tokens: a step by step tutorial&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。&lt;/p&gt;
+
+&lt;p&gt;如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;点击查看项目GITHUB，及更多的译文…&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+
+&lt;p&gt;林炜鑫，在读硕士，专注区块链技术研究与行业分析，欢迎加微信号:happyzai1993。&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;
+
+&lt;hr /&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">﻿# EOS White Paper Digest 对EOS白皮书的摘要</summary></entry><entry><title type="html">A Proof Of Stake Design Philosophy</title><link href="http://localhost:4000/a-proof-of-stake-design-philosophy/" rel="alternate" type="text/html" title="A Proof Of Stake Design Philosophy" /><published>2017-10-19T00:00:00+08:00</published><updated>2017-10-19T00:00:00+08:00</updated><id>http://localhost:4000/a-proof-of-stake-design-philosophy</id><content type="html" xml:base="http://localhost:4000/a-proof-of-stake-design-philosophy/">&lt;h2 id=&quot;a-proof-of-stake-design-philosophy权益证明设计哲学&quot;&gt;A Proof of Stake Design Philosophy–权益证明设计哲学&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文翻译自：https://medium.com/@VitalikButerin/a-proof-of-stake-design-philosophy-506585978d51&lt;/p&gt;
+
+  &lt;p&gt;译者：&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;区块链中文字幕组&lt;/a&gt;  &lt;a href=&quot;https://github.com/jonas-meng&quot;&gt;Xuming Meng&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译时间：2017-10-19&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;Systems like Ethereum (and Bitcoin, and NXT, and Bitshares, etc) are a fundamentally new class of cryptoeconomic organisms — decentralized, jurisdictionless entities that exist entirely in cyberspace, maintained by a combination of cryptography, economics and social consensus. They are kind of like BitTorrent, but they are also not like BitTorrent, as BitTorrent has no concept of state — a distinction that turns out to be crucially important. They are sometimes described as &lt;a href=&quot;https://letstalkbitcoin.com/is-bitcoin-overpaying-for-false-security&quot;&gt;decentralized autonomous corporations&lt;/a&gt;, but they are also not quite corporations — you can’t hard fork Microsoft. They are kind of like open source software projects, but they are not quite that either — you can fork a blockchain, but not quite as easily as you can fork OpenOffice.&lt;/p&gt;
+
+&lt;p&gt;像 Ethereum（和 Bitcoin，NXT 和 Bitshares 等）这样的系统本质上是一个新一代的加密经济有机体 - 去中心化的，无管辖的实体，完全存在于网络空间中，通过密码学，经济学和社会共识的结合来维护。他们有点像 BitTorrent，但他们又不像 BitTorrent，因为 BitTorrent 没有状态的概念 - 这是一个至关重要的区别。他们有时被描述为去中心化的自治公司，但他们也不是公司 - 你不能硬分支微软。他们有点像开源软件项目，但是它们也不完全是 - 你可以分叉 blockchain，但是不像你分叉 OpenOffice 那样容易。&lt;/p&gt;
+
+&lt;p&gt;These cryptoeconomic networks come in many flavors — ASIC-based PoW, GPU-based PoW, naive PoS, delegated PoS, hopefully soon Casper PoS — and each of these flavors inevitably comes with its own underlying philosophy. One well-known example is the maximalist vision of proof of work, where “the” correct blockchain, singular, is defined as the chain that miners have burned the largest amount of economic capital to create. Originally a mere in-protocol fork choice rule, this mechanism has in many cases been elevated to a sacred tenet — see &lt;a href=&quot;https://twitter.com/vitalikbuterin/status/687050458301657088&quot;&gt;this Twitter discussion between myself and Chris DeRose&lt;/a&gt; for an example of someone seriously trying to defend the idea in a pure form, even in the face of hash-algorithm-changing protocol hard forks. Bitshares’ &lt;a href=&quot;https://bitshares.org/technology/delegated-proof-of-stake-consensus/&quot;&gt;delegated proof of stake&lt;/a&gt; presents another coherent philosophy, where everything once again flows from a single tenet, but one that can be described even more simply: &lt;a href=&quot;http://docs.bitshares.org/bitshares/dpos.html&quot;&gt;shareholders vote&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;这些加密经济网络有许多种风格 - 基于 ASIC 的 PoW，基于 GPU 的 PoW，朴素 PoS，PoS，PoC 等等，希望很快就可以使用 Casper PoS，而且每种风格都不可避免地带有自己的基本理念。 一个众所周知的例子就是工作量证明的最大愿景，其中“正确的区块链，单数”被定义为矿工消耗最大的经济资本创造的链条。最初只是一个协议的分叉选择规则，这种机制在许多情况下已经被提升为一个神圣的原则 - 请看我和克里斯·德罗斯之间的这个 Twitter 讨论，一个即使在面对哈希算法改变协议的硬分叉情况下，某人也要认真地来保护这个想法的纯粹形态的例子。Bitshares 的委托权益证明提出了另一个连贯的哲学，其中一切从一个单一的原则出发，但可以被更简单地描述：股东投票。&lt;/p&gt;
+
+&lt;p&gt;Each of these philosophies; Nakamoto consensus, social consensus, shareholder voting consensus, leads to its own set of conclusions and leads to a system of values that makes quite a bit of sense when viewed on its own terms — though they can certainly be criticized when compared against each other. Casper consensus has a philosophical underpinning too, though one that has so far not been as succinctly articulated.&lt;/p&gt;
+
+&lt;p&gt;每一个共识哲学; 中本聪共识，社会共识，股东投票共识，都有自己的一套结论，并引导了一种从自身的观点来看相当有意义的价值体系 - 虽然互相比较时肯定会受到批评。Capser 共识也有一个哲学基础，尽管迄今为止还没有那么简明扼要。&lt;/p&gt;
+
+&lt;p&gt;Myself, Vlad, Dominic, Jae and others all have their own views on why proof of stake protocols exist and how to design them, but here I intend to explain where I personally am coming from.&lt;/p&gt;
+
+&lt;p&gt;我自己 (Vitalike Buterin)，Vlad，Dominic，Jae和其他人对于权益证明协议的存在为什么存在和如何设计都有自己的看法，但在这里我打算解释我的观点来自哪里。&lt;/p&gt;
+
+&lt;p&gt;I’ll proceed to listing observations and then conclusions directly.&lt;/p&gt;
+
+&lt;p&gt;我将会列举所有观察然后直接给出结论。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cryptography is truly special in the 21st century because cryptography is one of the very few fields where adversarial conflict continues to heavily favor the defender. Castles are far easier to destroy than build, islands are defendable but can still be attacked, but an average person’s ECC keys are secure enough to resist even state-level actors. Cypherpunk philosophy is fundamentally about leveraging this precious asymmetry to create a world that better preserves the autonomy of the individual, and cryptoeconomics is to some extent an extension of that, except this time protecting the safety and liveness of complex systems of coordination and collaboration, rather than simply the integrity and confidentiality of private messages. Systems that consider themselves ideological heirs to the cypherpunk spirit should maintain this basic property, and be much more expensive to destroy or disrupt than they are to use and maintain.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;加密技术在21世纪是真正特别的，因为加密技术是对抗性的冲突仍然在很大程度上有利于防御方的极少数领域之一。毁灭城堡比建造更容易，岛屿虽然可以被捍卫的，但仍然可以受到攻击，但普通人的 ECC 秘钥是足够安全到甚至可以防御国家级别的执行人员。网络朋克哲学 (Cyberpunk philosophy) 从根本上是利用这种宝贵的不对称来创造一个更好地保护个人自主权的世界，而密码经济在某种程度上是延伸的，只不过这次保护的是复杂的协调和协作系统的安全和存活，而不是私人信息的完整性和保密性。认为自己是网络朋克精神的正统思想继承的系统应该保持这个基本的属性，并且销毁或破坏的代价要比其使用和维护更高。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The “cypherpunk spirit” isn’t just about idealism; making systems that are easier to defend than they are to attack is also simply sound engineering.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;“网络朋克精神”不仅仅是理想主义; 构建比起进攻更容易防御的系统也只不过是健全的工程学。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;On medium to long time scales, humans are quite good at consensus. Even if an adversary had access to unlimited hashing power, and came out with a 51% attack of any major blockchain that reverted even the last month of history, convincing the community that this chain is legitimate is much harder than just outrunning the main chain’s hashpower. They would need to subvert block explorers, every trusted member in the community, the New York Times, archive.org, and many other sources on the internet; all in all, convincing the world that the new attack chain is the one that came first in the information technology-dense 21st century is about as hard as convincing the world that the US moon landings never happened. These social considerations are what ultimately protect any blockchain in the long term, regardless of whether or not the blockchain’s community admits it (note that Bitcoin Core does admit this primacy of the social layer).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在中长期的时间尺度上，人类相当有共识。 即使对手能够获得无限制的哈希算力，而且对任何重要的区块链发动了51％的攻击，还原了上个月的历史，但是说服了社区，这个链条是合法的，比超越主链的哈希算力更难。他们需要颠覆区块探索者，社区中每个值得信赖的成员，“纽约时报”，archive.org 和互联网上的许多其他来源; 总而言之，说服世界，新的攻击链才是第一条主链在信息技术密集的21世纪和就像说美国的登月从未发生过的一样困难。这些社会学考量会最终长期的保护任何区块链，不管区块链社区是否承认它（请注意，比特币核心承认社会层面的首要地位）。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;However, a blockchain protected by social consensus alone would be far too inefficient and slow, and too easy for disagreements to continue without end (though despite all difficulties, &lt;a href=&quot;http://www.npr.org/sections/money/2011/02/15/131934618/the-island-of-stone-money&quot;&gt;it has happened&lt;/a&gt;); hence, economic consensus serves an extremely important role in protecting liveness and safety properties in the short term.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;但是，单靠社会共识来保护的一个区块链将是低效和缓慢的，也很容易让分歧继续下去（尽管如此，它仍然发生了）; 因此，经济共识在短期内对保护活动和安全财产起着非常重要的作用。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Because proof of work security can only come from block rewards (in Dominic Williams’ terms, it &lt;a href=&quot;https://twitter.com/dominic_w/status/648330685963370496&quot;&gt;lacks two of the three Es&lt;/a&gt;), and incentives to miners can only come from the risk of them losing their future block rewards, proof of work necessarily operates on a logic of massive power incentivized into existence by massive rewards. Recovery from attacks in PoW is very hard: the first time it happens, you can hard fork to change the PoW and thereby render the attacker’s ASICs useless, but the second time you no longer have that option, and so the attacker can attack again and again. Hence, the size of the mining network has to be so large that attacks are inconceivable. Attackers of size less than X are discouraged from appearing by having the network constantly spend X every single day. I reject this logic because (i) it &lt;a href=&quot;http://digiconomist.net/beci&quot;&gt;kills trees&lt;/a&gt;, and (ii) it fails to realize the cypherpunk spirit — cost of attack and cost of defense are at a 1:1 ratio, so there is no defender’s advantage.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;由于工作量证明的安全保障只能来自积极的区块奖励（在多米尼克威廉姆斯的条款中，它缺乏三个E中的两个），而对矿工的激励只能来自于他们失去未来区块奖励的风险，工作量证明必然运行在大规模算力对应大量的奖励的逻辑上。从 PoW 攻击中恢复是非常困难的：第一次发生这种情况，您可以用硬盘来改变 PoW，从而使攻击者的 ASIC 无用，但是再次不再有这种选择，所以攻击者可以重复攻击。因此，采矿网络的规模必须如此之大，以致攻击是不可想象的。通过使网络每天不断地消耗X，让小于X的攻击量不在出现。 我拒绝这个逻辑，因为（i）它消耗树木，和（ii）它没有实现网络朋克精神 - 攻击成本和防御成本是1比1，所以没有防守者的优势。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Proof of stake breaks this symmetry by relying not on rewards for security, but rather penalties. Validators put money (“deposits”) at stake, are rewarded slightly to compensate them for locking up their capital and maintaining nodes and taking extra precaution to ensure their private key safety, but the bulk of the cost of reverting transactions comes from penalties that are hundreds or thousands of times larger than the rewards that they got in the meantime. The “one-sentence philosophy” of proof of stake is thus not “security comes from burning energy”, but rather “security comes from putting up economic value-at-loss”. A given block or state has $X security if you can prove that achieving an equal level of finalization for any conflicting block or state cannot be accomplished unless malicious nodes complicit in an attempt to make the switch pay $X worth of in-protocol penalties.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;权益证明通过惩罚而不是奖励来确保安全，从而打破这种对称性。验证员将金钱（“存款”）置于股权之中，由于他们锁定资本并且维护节点所以获得少量赔偿，并且采取额外的预防措施来确保其私人钥匙安全，但是大部分恢复交易的成本来自于比他们所获得的奖励大数百或数千倍的惩罚。因此，用一句话来说，权益证明不是“安全来自燃烧能源”，而是“安全来自于经济价值的损失”。一个给定的区块或状态可以具有 $X 安全性，如果您可以证明对于任何冲突区块或状态达到相同级别的终止状态是不可能的，除非恶意节点同时尝试使交换机支付 $X 的协议处罚。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Theoretically, a majority collusion of validators may take over a proof of stake chain, and start acting maliciously. However, (i) through clever protocol design, their ability to earn extra profits through such manipulation can be limited as much as possible, and more importantly (ii) if they try to prevent new validators from joining, or execute 51% attacks, then the community can simply coordinate a hard fork and delete the offending validators’ deposits. A successful attack may cost $50 million, but the process of cleaning up the consequences will not be that much more onerous than the geth/parity consensus failure of 2016.11.25. Two days later, the blockchain and community are back on track, attackers are $50 million poorer, and the rest of the community is likely richer since the attack will have caused the value of the token to go up due to the ensuing supply crunch. That’s attack/defense asymmetry for you.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;理论上来说，多数验证者勾结可能会接管一条权益证明区块链，并开始恶意行事。然而，（i）通过巧妙的协议设计，他们这种操纵获得额外利润的能力可以被尽可能地限制，更重要的是（ii）如果他们试图阻止新的验证者加入或执行51％的攻击，那么社区可以简单地组织硬分叉，并删除有罪的验证者的存款。成功的攻击可能花费5000万美元，但清理后果的过程不会比2016年的　geth/parity 一致性失败更加繁重。两天后，区块链和社区回到正轨，攻击者损失5000万美元，其余社区可能更加富有，因为随之而来的供应紧张，攻击将导致代币的价值上升。 这是对于你的攻击/防御不对称。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The above should not be taken to mean that unscheduled hard forks will become a regular occurrence; if desired, the cost of a single 51% attack on proof of stake can certainly be set to be as high as the cost of a permanent 51% attack on proof of work, and the sheer cost and ineffectiveness of an attack should ensure that it is almost never attempted in practice.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;上述不应该被认为意味着不定期的硬叉将成为常规事件; 如果需要，在权益证明上的单次51％攻击的开销可以被设定为和在工作量证明上的永久的51％攻击的开销一样，成本和攻击的无效性应确保该攻击在实践中几乎不会发生。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Economics is not everything. Individual actors may be motivated by extra-protocol motives, they may get hacked, they may get kidnapped, or they may simply get drunk and decide to wreck the blockchain one day and to hell with the cost. Furthermore, on the bright side, individuals’ moral forbearances and communication inefficiencies will often raise the cost of an attack to levels much higher than the nominal protocol-defined value-at-loss. This is an advantage that we cannot rely on, but at the same time it is an advantage that we should not needlessly throw away.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;经济学不是一切。个人行为者可能受到超常规动机的影响，他们可能被黑客入侵，他们可能被绑架，或者他们可能只是醉酒，并有一天决定用对应的开销来破坏区块链。除此以外，从好的角度来看，个人的道义上的宽恕和沟通效率低下往往会将袭击成本提高到远远高于名义上协议定义的价值损失值。这是我们不能依赖的一个优势，但同时它是一个优势，我们不应该不必要地扔掉。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hence, the best protocols are protocols that work well under a variety of models and assumptions — economic rationality with coordinated choice, economic rationality with individual choice, simple fault tolerance, Byzantine fault tolerance (ideally both the adaptive and non-adaptive adversary variants), &lt;a href=&quot;https://www.amazon.ca/Honest-Truth-About-Dishonesty-Everyone-Especially/dp/0062183613&quot;&gt;Ariely/Kahneman-inspired behavioral economic models&lt;/a&gt; (“we all cheat just a little”) and ideally any other model that’s realistic and practical to reason about. It is important to have both layers of defense: economic incentives to discourage centralized cartels from acting anti-socially, and anti-centralization incentives to discourage cartels from forming in the first place.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;最好的协议是在各种模型和假设下工作良好的协议 - 经济合理性和协调选择，经济合理性与个人选择，简单容错，拜占庭容错（理想情况是适应性和非适应性对手变体）， 受 Ariely/Kahneman 启发的行为经济模式（“我们都欺骗了一点”），理想情况下现实和实际的任何其他模型。同时具有两层防御是很重要的：经济激励措施阻止中心式合作团体采取反社会行动，反中心化激励措施阻止合作团体的初始形成。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consensus protocols that work as-fast-as-possible have risks and should be approached very carefully if at all, because if the possibility to be very fast is tied to incentives to do so, the combination will reward very high and systemic-risk-inducing levels of network-level centralization (eg. all validators running from the same hosting provider). Consensus protocols that don’t care too much how fast a validator sends a message, as long as they do so within some acceptably long time interval (eg. 4–8 seconds, as we empirically know that latency in ethereum is usually ~500ms-1s) do not have these concerns. A possible middle ground is creating protocols that can work very quickly, but where mechanics similar to Ethereum’s uncle mechanism ensure that the marginal reward for a node increasing its degree of network connectivity beyond some easily attainable point is fairly low.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;快速运行的共识协议是有风险，并且被应该非常仔细地处理，因为如果快速运行的可能性依赖于的激励措施，则这样的组合将产生非常高的系统性风险从而引发的网络级中心化（例如，所有验证器都运行在同一主机提供商上）。 那些不在意验证器发送消息的速度，只要在一段可接受的长时间间隔内（例如4-8秒，因为我们根据经验知道，通常情况下，ethereum 的延迟时间通常为500ms- 1s）的共识协议不会有这些担忧。一个可能的中间地带是创建可以快速运行的协议，但是拥有与 Ethereum 的 uncle 机制类似的机制确保节点增加其网络连接程度超过一些易于达到的点后的边际报酬相当低。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;From here, there are of course many details and many ways to diverge on the details, but the above are the core principles that at least my version of Casper is based on. From here, we can certainly debate tradeoffs between competing values . Do we give ETH a 1% annual issuance rate and get an $50 million cost of forcing a remedial hard fork, or a zero annual issuance rate and get a $5 million cost of forcing a remedial hard fork? When do we increase a protocol’s security under the economic model in exchange for decreasing its security under a fault tolerance model? Do we care more about having a predictable level of security or a predictable level of issuance? These are all questions for another post, and the various ways of implementing the different tradeoffs between these values are questions for yet more posts. But we’ll get to it :)&lt;/p&gt;
+
+&lt;p&gt;从这里，当然有许多细节和许多方式分歧细节，但上面至少是我理想中 Casper 版本基于的核心原则。从这里，我们当然可以辩论竞争价值之间的权衡。我们是否给予ETH 1％的年发行额，并获得5000万美元的强制补救硬分叉的成本，或0年发行额，并获得500万美元的强制补救硬分叉的成本？ 何时在经济模式下增加协议的安全性，以换取在容错模式下降低其安全性？ 我们更关心拥有可预测的安全级别还是可预测的发行级别？ 这些都是另一篇文章的问题，实现这些价值观之间的不同权衡的各种方法是更多的帖子的问题。 但我们会得到它:)&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。&lt;/p&gt;
+
+&lt;p&gt;如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;点击查看项目GITHUB，及更多的译文…&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+
+&lt;p&gt;抖抖，在读博士，专注区块链技术研究与行业分析，欢迎加微信号:jonas-meng&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;
+
+&lt;hr /&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">A Proof of Stake Design Philosophy–权益证明设计哲学</summary></entry><entry><title type="html">10 reasons to buy eos tokens right now</title><link href="http://localhost:4000/10-reasons-to-buy-EOS-tokens-right-now/" rel="alternate" type="text/html" title="10 reasons to buy eos tokens right now" /><published>2017-10-16T00:00:00+08:00</published><updated>2017-10-16T00:00:00+08:00</updated><id>http://localhost:4000/10%20reasons%20to%20buy%20EOS%20tokens%20right%20now</id><content type="html" xml:base="http://localhost:4000/10-reasons-to-buy-EOS-tokens-right-now/">&lt;h1 id=&quot;10-reasons-to-buy-eos-tokens-right-now-现在购买eos的十大理由&quot;&gt;10 reasons to buy EOS tokens right now 现在购买EOS的十大理由&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文翻译自：https://medium.com/@yobanjo/10-reasons-to-buy-eos-tokens-right-now-3a4fa8015c14&lt;/p&gt;
+
+  &lt;p&gt;译者：&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;区块链中文字幕组&lt;/a&gt; &lt;a href=&quot;https://github.com/oscnet&quot;&gt;鱼&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译时间：2017-10-16&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;EOS caused quite some stir when Dan Larimer gave his presentation a few months ago. The project is said to “deliver on the promises of Ethereum” which means that almost everything is possible using a blockchain. Make sure to read my first &lt;a href=&quot;https://medium.com/@yobanjo/eos-is-nailing-it-almost-100-aafa3f6410f5&quot;&gt;EOS article&lt;/a&gt; which explains some of the benefits of EOS over other smart-contract systems. But for now let’s jump to the top 10 reasons to be long on the EOS token.&lt;/p&gt;
+
+&lt;p&gt;Dan Larimer 几个月前的演讲使EOS引起了轰动。此项目被称为“履行了以太坊的承诺”，意味着几乎所有的事情都可以使用块链来解决。请阅读我的第一个&lt;a href=&quot;https://medium.com/@yobanjo/eos-is-nailing-it-almost-100-aafa3f6410f5&quot;&gt;EOS文章&lt;/a&gt;，其中解释了EOS与其他智能合约系统的一些优势。现在我们来看看购买EOS令牌的前10大原因。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;90% discount from the peak price&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Yes you are reading that right. The EOS token lost over 90% of its value from the 5.48 dollar peak some months ago.&lt;/p&gt;
+
+&lt;p&gt;1、 已经从最高价下降了90%&lt;/p&gt;
+
+&lt;p&gt;是的，EOS 已经从几个月前的 5.48 美元高点跌掉了其90％的价格。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*Y_W_RLPuWHAZ9oZsAOk3Og.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The RSI shows a little uptrend. RSI显示了上升趋势&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;First P2P-testnet coming this year&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Currently we’re seeing “Fase 1” which brings us a standalone node. Don’t bother to compile the code if you’re not a geek. This stuff is still quite hard and it allows you to produce blocks at home. But check that Roadmap. “Fase 2” is expected this year as well and will allow nodes to connect to each other. This means we’ll see the first transactions between nodes go live. This is what’s called a “Minimal Viable Test Network”. It should allow the average Joe to join the test as well.&lt;/p&gt;
+
+&lt;p&gt;2、今年第一个P2P测试网络&lt;/p&gt;
+
+&lt;p&gt;目前“阶段1”的开发已经使 EOS能做为一个独立的节点运行。但是如果你不是极客，不要试图编译，编译源代码还是很有难度的。根据第2阶段路线图预计今年将允许节点相互连接。这意味着我们能够在节点间生成事务。即所谓的“最小测试网络”。允许人们进行测试。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;EOS is still completely misunderstood by a lot of people&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;And this can be in your favor. Make sure to dive into the EOS whitepaper or at least have a look at this clear article about delegated proof of stake in EOS.&lt;/p&gt;
+
+&lt;p&gt;3、许多人仍然完全不了解 EOS&lt;/p&gt;
+
+&lt;p&gt;仔细阅读EOS白皮书，或者至少可以看看关于EOS DPOS的文章。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn-images-1.medium.com/max/1600/1*SC1m6O_TDMbzmrv8JIcUoQ.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can’t fork away as the longest chain (top) will always win
+EOS 不会分叉，因为系统会使用最长的块链&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Dan Larimer has a good trackrecord&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Dan created Bitshares 1 &amp;amp; 2 and Steemit. His systems already handle more blockchain transactions than Ethereum or Bitcoin. He came up with the idea of the DAC. A decentralized autonomous corporation. He also invented delegated proof of stake.&lt;/p&gt;
+
+&lt;p&gt;4、Dan Larimer 是个牛人&lt;/p&gt;
+
+&lt;p&gt;Dan创造了Bitshares 1＆2和Steemit。这些系统已经处理了比 Ethereum 或 Bitcoin 多得多的块链交易。是他想出了DAC（一个分散的自治架构）的想法。他还发明了DPOS。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;EOS is thousands of times faster than Ethereum&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Ethereum claims to be “the world computer”. Even while their blockchain can only handle around 20 transactions per second. For EOS this number will be in the hundreds of thousands per blockchain per second. That’s what is needed for social networks, videos websites and decentralized exchanges.&lt;/p&gt;
+
+&lt;p&gt;5、 EOS 比 Ethereum 快千倍&lt;/p&gt;
+
+&lt;p&gt;Ethereum 声称是“世界电脑”。但它只能处理每秒约20笔的交易。EOS却可以处理每秒数十万个交易。而这样的高速度正是社交网络，视频网站和去中心化交易所等应用所需要的。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Finally we’ll see a usable DEX&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Think about all the crypto exchanges that got in trouble with hacks and the lost of great amounts of money. Do you still store your coins on an exchange? With Bitschares you can already trade using a fast decentralized exchange (DEX). But EOS will take this to the max. Dan and his team are working on 500 ms blocks. That means that every order, trade, and more are settled within less than a second.&lt;/p&gt;
+
+&lt;p&gt;6、最后，我们将看到一个可用的去中心化交易所&lt;/p&gt;
+
+&lt;p&gt;几乎所有的数字货币交易所都会遇到黑客及丢失大量金钱的巨大风险。你还会把钱存在交易所吗？bts的去中心化交易所已经可以快速交易，但是 EOS 能做得更好。 Dan和他的团队正在努力开发500毫秒级的区块。这意味着每一个订单，交易等都会在不到一秒钟内处理完成。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Bitfinex is on board&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Bitfinex is one of the biggest exchanges out there. And they’re smart enough to understand that most people don’t really like having coins on their system. If Bitfinex can be one of the first companies to provide a DEX they can make quite some money. It will be companies like these that will bring people to EOS.&lt;/p&gt;
+
+&lt;p&gt;7、Bitfinex 已经上了 EOS 的船&lt;/p&gt;
+
+&lt;p&gt;Bitfinex是最大的交易所之一。而且他们聪明的明白大多数人并不喜欢在他们的系统上使用代币。如果Bitfinex可以成为首个提供去中心化交易的公司之一，那么他们就可以赚到更多的钱。象这样的公司都会使人们使用EOS。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Block.one has a lot of money&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;They claim to have 1 billion dollar ready for dApp development. This means they can fund anything from gambling websites to social networks to run on EOS.&lt;/p&gt;
+
+&lt;p&gt;8、Block.one 有很多钱&lt;/p&gt;
+
+&lt;p&gt;他们有10亿美元为dApp开发做资助。这意味着他们可以资助赌博网站到社交网络等运行在EOS上的任何应用。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;A growing community&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;There are almost 10k people in the EOS Telegram group. This is quite huge for a project that doesn’t has anything live at the moment. A lot of people are excited about the project and Dan has gathered quite some followers behind him after being around for quite some time now.&lt;/p&gt;
+
+&lt;p&gt;9、成长中的社区&lt;/p&gt;
+
+&lt;p&gt;EOS 电报组中有近1万人。这个对于目前还是个空气的项目来说，是相当巨大的数字。很多人都对这个项目感到兴奋，
+随着时间推移，Dan 已经收集了很多跟随他的人。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Get rid of all these addresses&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Long crypto addresses suck. EOS will allow people to register a username. Imagine being able to blog, trade, communicate and use any dApp by your own username. This will make things more userfriendly. And this will bring more users to EOS that are new into crypto.&lt;/p&gt;
+
+&lt;p&gt;Disclosure: I own EOS for the long term.&lt;/p&gt;
+
+&lt;p&gt;10、 摆脱难记的地址&lt;/p&gt;
+
+&lt;p&gt;长长的代币地址非常难以使用。EOS将允许人们注册用户名。想象一下，您可以通过自己的用户名写博客，交易，沟通和使用任何dApp应用。这将使应用更加用户友好。也将使更多的用户加入EOS阵营。&lt;/p&gt;
+
+&lt;p&gt;披露：本人长期持有EOS。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。&lt;/p&gt;
+
+&lt;p&gt;如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;点击查看项目GITHUB，及更多的译文…&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+
+&lt;p&gt;鱼 区块链技术爱好者，热衷于区块链业务创新研究与分析，欢迎加微信号:oscnet&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;
+
+&lt;hr /&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">10 reasons to buy EOS tokens right now 现在购买EOS的十大理由</summary></entry><entry><title type="html">Will Eos Be The Next Blockchain Operating System</title><link href="http://localhost:4000/will-eos-be-the-next-blockchain-operating-system/" rel="alternate" type="text/html" title="Will Eos Be The Next Blockchain Operating System" /><published>2017-10-15T00:00:00+08:00</published><updated>2017-10-15T00:00:00+08:00</updated><id>http://localhost:4000/will-eos-be-the-next-blockchain-operating-system</id><content type="html" xml:base="http://localhost:4000/will-eos-be-the-next-blockchain-operating-system/">&lt;h1 id=&quot;will-eos-be-the-next-blockchain-operating-system-eos会成为下一个区块链操作系统吗&quot;&gt;Will EOS be the next Blockchain Operating System? EOS会成为下一个区块链操作系统吗？&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文翻译自：https://eosio.github.io/eos/group__eosc.html&lt;/p&gt;
+
+  &lt;p&gt;译者：&lt;a href=&quot;https://github.com/gumoon&quot;&gt;区块链中文字幕组 胡亮&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译时间：2017-10-15&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://www.unlock-bc.com/sites/default/files/styles/unlock_news_view/public/news/images/thumbnail/EOS.png?itok=0xqHLxHu&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Block.one, the company behind the software of EOS Blockchain, wants it to be the Windows Operating System of Blockchain. In short EOS is what window was for the computer or what Google was for the internet. The system is designed to support commercial scale decentralized applications.&lt;/p&gt;
+
+&lt;p&gt;Block.one，EOS 区块链背后的公司，希望 EOS 成为区块链的 Windows 操作系统。简言之，EOS 是个人电脑时代的 windows，互联网时代的 Google。该系统被设计为支持商业级的去中心化应用程序。&lt;/p&gt;
+
+&lt;p&gt;Block.one has received substantial investment and is managed by a team of well known and successful Blockchain entrepreneurs, technologists and blockchain veterans. Daniel Larimer CTO of Block.one is also the founder of Bitshare and Steem the two most successful Blockchain implementations. EOS will be his 4th public Blockchain platform. The current development team at Block.one consists of names such a Brendan Blumer CEO, Kokuei Guo Yuan President, Ian Grigg Partner, Brock Pierce partners, and others.&lt;/p&gt;
+
+&lt;p&gt;Block.one 已经融到了可观的资金。创始团队由区块链行业知名的成功企业家、技术专家和区块链行业资深人士组成。Block.one 的首席技术官 Daniel Larimer 也是 Bitshare 和 Steem 这两个最成功的区块链项目的创始人。EOS 是他创立的第四个公开的区块链项目。Block.one 的当前开发组成员包括：CEO Brendan Blumer, 董事长 Kokuei Guo Yuan，合伙人 Ian Grigg, 合伙人 Brock Pierce 等等。&lt;/p&gt;
+
+&lt;p&gt;EOS is working to resolve the issue of scalability that is hindering the Blockchain from going mainstream. For example credit card networks today are able to process 20,000 transactions per second. Facebook can process 52,000 likes per second, while the financial industry processes 100,000 transactions per second. In comparison Bitcoin can only process 3 transactions per second because of the block size, and Ethereum is limited to 30 per second. So EOS hopes to resolve the scalability issue allowing developers to scale to millions of users.&lt;/p&gt;
+
+&lt;p&gt;EOS 致力于解决阻碍区块链变成主流的扩展性问题。例如：当前信用卡网络每秒能够处理2万交易量。Fackbook 每秒能处理5.2万次点赞，而交易所每秒处理10万次交易。比较而言，由于区块大小的限制，比特币网络每秒只能处理3笔交易，以太坊网络每秒仅仅处理30笔交易。因此，EOS 希望解决这个扩展性问题，允许开发者扩展到百万量级。&lt;/p&gt;
+
+&lt;p&gt;According to Larimer “ If you look at the blockchain industry, everyone wants to build smart businesses, decentralized organizations, etc…, and in the process developers built decentralized computers from the ground up which can run their smart apps. In this process, all app developers have to solve many of the same problems: account systems, recovery processes, multi-sig, manage challenges, and what they’re missing is the operating system, which could provide all the common features that every application depends upon, allowing applications to focus on what makes them different.”&lt;/p&gt;
+
+&lt;p&gt;正如 Larimer 所说，“如果你观察区块链行业，就会发现每个人都想构建智能商业，去中心化组织，等等。而且，开发者都是从零开始搭建能运行他们的智能合约的去中心化计算机。在这个过程中，所有的应用开发者不得不重复解决很多相同的问题：账户系统、恢复过程、多方签名、管理挑战等。他们缺的是一个能提供所有应用程序都依赖的通用功能的操作系统，以让开发者聚焦于应用的创新。”&lt;/p&gt;
+
+&lt;p&gt;Larimar explains further, “EOS provides parallel processing of smart contracts through horizontal scalability, asynchronous communication, and interoperability. It will provide databases, account permissions, scheduling, authentication, and internet-application communication. For example, both Bitshares and Steem can be run on EOS in parallel, and because of the asynchronous communication, additional nodes and entire clusters can be thrown behind the processing of transactions to scale up to any transaction volume you want.”&lt;/p&gt;
+
+&lt;p&gt;Larimer 进一步解释说，“EOS 通过水平扩展、异步通信和互操作性来提供智能合约的并行处理能力。它将会提供数据库、账户权限管理、计划任务、验证和互联网应用通信等功能。比如，Bitshares 和 Steem 可以并行地运行在 EOS 上，通过使用异步通信、外部节点和集群来扩展交易的处理，以达到我们想要的量级。”&lt;/p&gt;
+
+&lt;p&gt;So what makes EOS different? First it claims to be scalable as it can support 1000 of commercial scale DAPPs through parallel execution and asynchronous communications. As Larimar stated, “ EOS puts the source code on the blockchain so that it is human readable what the contract says, and everyone can see it and developers can optimize it and compile on different machines, all without breaking consensus. It also eliminates gas to eliminate the extra operations that are required to count the important operations.”&lt;/p&gt;
+
+&lt;p&gt;什么使得 EOS 不一样呢？首先，它宣称的可扩展。因为它能通过并行执行和异步通信支持1000个商业级的 DAPPs。就像 Larimar 所说，“EOS 把人们可读懂的合约源码部署到区块链上，每个人都可以去查看，开发者可以优化它并且在不同的机器编译，所有这一切都不会打破一致性。它也不消耗 gas, 从而不需要额外计算重要操作的次数。”&lt;/p&gt;
+
+&lt;p&gt;It also claims to be flexible because EOS will use delegated proof-of-stake. So if an app is broken or fails, elected block producers can freeze the application until a bug can be fixed and then update the code. Dan adds, ‘  EOS is also flexible in the sense that you only have to run the applications that you need. If you are running an exchange, you don’t have to run the social media apps, and you can configure your local node to process only the data you care about. Not every node needs to run and maintain the full state of the blockchain. EOS also publishes source code, not assembly, and provides generalized role-based permissions.”&lt;/p&gt;
+
+&lt;p&gt;其次，它宣称的有弹性。因为 EOS 将采用 DPOS 技术。所以，如果一个应用出错了或者失败了，被选中的区块生产者能够冻结该应用程序直到 bug 被修复并且更新了代码。Dan 补充说，”EOS 的弹性某种意义上表示，你仅仅需要运行你需要的应用程序。如果你正在运行一个交易所程序，你不必运行社交媒体应用程序，并且，你可以配置你的本地节点仅仅处理你关心的数据。并非所有的节点都需要运行和维护区块链的完整状态。EOS 公开源代码，但不一定，会提供通用的基于角色的权限管理功能。&lt;/p&gt;
+
+&lt;p&gt;In addition EOS claims to be usable. EOS will include a web toolkit for interface development, self-describing interfaces (data that goes on the blockchain can be read by humans but is also compressed), self-describing database schemas, and a declarative permission scheme. This allows a fine-grained level of permissions in which you can easily delegate specific account permission to other accounts.&lt;/p&gt;
+
+&lt;p&gt;再次，EOS宣称的可用性。EOS 将包括 web 接口开发工具集，自描述接口（来自区块链的数据人类可读但是被压缩了），自描述的数据库结构和一个权限结构声明。它允许一个细粒度的权限管理，非常容易委托特定的账户权限给其它账号。&lt;/p&gt;
+
+&lt;p&gt;Finally in terms of governance EOS is using Delegated proof-of-stake through elected block producers. A legally binding constitution (think decentralized peer-to-peer terms of service) establishes a common jurisdiction for disputes and dispute resolution. EOS will also include self-funded community benefit apps that are selected through stake-weighted voting. Every account will have to sign the constitution. One idea is that every transaction may include the hash of the current state of the constitution. The constitution itself is something that can be modified and evolve, and captures the intent of what the blockchain is trying to express and guides the way when trying to resolve disputes. Signing the constitution expires if you do not use the platform just like other apps updating their terms of service.&lt;/p&gt;
+
+&lt;p&gt;最后，EOS 的治理是使用 DPOS 来选择区块链生产者。一个有法律效应的宪法（考虑去中心化的点对点服务），授予常见的管辖权，来解决争议。EOS 也包括一个经投票选出的自有资金的社区收益应用。每个账号都必须签署宪法。一个点子是，每笔交易都可以包括当前宪法状态的哈希值。宪法可以被修改和改进，并且捕获区块链尝试去表达的意图，为尝试解决争论指明方向。如果你不使用这个平台，则签署的宪法过期，就像其它的应用程序更新他们的服务条款。&lt;/p&gt;
+
+&lt;p&gt;Pursuant to EOS, block producers are elected by token holders but unlike other platforms, the EOS’ governance model enables users to hold block producers in check if they produce empty blocks or otherwise act in ways that harm the network. The incentives of the block producers are aligned with the incentives of the users, unlike other proof of work platforms where those in control of the network are different than those who hold the tokens.&lt;/p&gt;
+
+&lt;p&gt;根据 EOS 的规则，区块生产者由代币持有者选择，这区别于其它区块链平台。EOS 的治理模式鼓励持有区块链生产者检查他们是否生产了空块，不然，这些空块会威胁整个网络。区块生产者的动机被代币持有者的动机矫正，不像其它工作量证明平台，控制网络的不是代币持有者。&lt;/p&gt;
+
+&lt;p&gt;According to Dan, EOS is designed to be run in dozens of datacenters around the globe which opens up far more opportunities for decentralization at scale. This may place a barrier to entry to those who want to be paid as block producers, but ultimately there are far more viable datacenters than there are viable mining data centers. Mining profitability is very sensitive to electricity rates and ultimately also requires large data centers to scale transaction volume.&lt;/p&gt;
+
+&lt;p&gt;据 Dan 说，EOS 被设计为可以在全球的许多数据中心运行，这为去中心化扩展打开了非常多的机会。这可能会阻碍想成为区块生产者的用户无法支付。但是，这相对于挖矿数据中心更有可能成功。挖矿的利润率对耗电量非常敏感，最终也要求大的数据中心来扩展交易量。&lt;/p&gt;
+
+&lt;p&gt;Dima Starodubcev, Fund Manager at Satoshi Fund in a recent report stated, “ Personally, I am glad that Dan Larimer, one of the brightest brains in the blockchain industry, after several quite successful experiments, moved forward to develop a full-fledged platform for smart contracts. We shall not only follow this project with great interest, but also do our best to facilitate its adaptation by DApp developers. Especially since it will be absolutely feasible because EOS, instead of using a specific virtual machine and programming language, is using a much more universal technology called WebAssembly that will probably lay the foundation for the entire web.&lt;/p&gt;
+
+&lt;p&gt;Satoshi 基金的基金管理人 Dima Starodubcev 最近在一份最近的报告中说，“个人的话，我欣赏 Dan Larimer, 他是区块链行业最出色的人之一，在有多个相当成功的项目经验之后，全力去为智能合约开发一个全功能的平台。我们将不仅会以最大的兴趣跟踪这个项目，而且会全力为 DApp 开发者采用它提供便利。它绝对可行，尤其因为EOS正在使用一个更加通用的将来可能成为 web 的基础设施的技术 WebAssembly，来代替特定的虚拟机和编程语言，”。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。&lt;/p&gt;
+
+&lt;p&gt;如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;点击查看项目GITHUB，及更多的译文…&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+
+&lt;p&gt;胡亮 区块链技术爱好者，欢迎加微信号:haobaba-huliang&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;
+
+&lt;hr /&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">Will EOS be the next Blockchain Operating System? EOS会成为下一个区块链操作系统吗？</summary></entry><entry><title type="html">Start An Eos Meetup In Your Community</title><link href="http://localhost:4000/Start-an-EOS-Meetup-in-your-community/" rel="alternate" type="text/html" title="Start An Eos Meetup In Your Community" /><published>2017-10-15T00:00:00+08:00</published><updated>2017-10-15T00:00:00+08:00</updated><id>http://localhost:4000/Start-an-EOS-Meetup-in-your-community</id><content type="html" xml:base="http://localhost:4000/Start-an-EOS-Meetup-in-your-community/">&lt;h1 id=&quot;start-an-eos-meetup-in-your-community-在你的社区开始一个eos论坛&quot;&gt;Start an EOS Meetup in your community 在你的社区开始一个EOS论坛&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文翻译自：https://steemit.com/eos/@eosio/start-an-eos-meetup-in-your-community&lt;/p&gt;
+
+  &lt;p&gt;译者：&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;区块链中文字幕组&lt;/a&gt; &lt;a href=&quot;https://github.com/weixin1993&quot;&gt;林炜鑫&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译时间：2017-10-15&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;##Start an EOS Meetup in your area&lt;/p&gt;
+
+&lt;p&gt;在你的地区开展一个EOS论坛&lt;/p&gt;
+
+&lt;p&gt;EOS Meetups are quickly growing in popularity globally and many have reached out to us about starting an EOS Meetup in their local community. It is very important to us that we help continue to build an environment where people of all expertise can come together through shared interests in the EOS.IO software and what it can do.&lt;/p&gt;
+
+&lt;p&gt;在全球范围内，EOS论坛正在迅速普及，许多人已经向我们提出了在当地社区启动EOS论坛的请求。对于我们而言，很重要的一点是我们将继续建立一个良好的环境。在这个环境中，所有专家都能聚在一起分享他们对于EOS.IO软件的理解并探讨EOS能实现什么功能。&lt;/p&gt;
+
+&lt;p&gt;Starting a Meetup is a great way to tailor the discussion to your community’s needs, while getting the chance to meet people with the same interests face to face. If you’d like to create an EOS Meetup in your community, there are a few simple steps you can take to get involved:&lt;/p&gt;
+
+&lt;p&gt;开展论坛是一种很好的方式来调整你的社区研讨需求，同时也有机会与那些有着相同兴趣的人面对面交流。如果你想在你的社区开展一个EOS论坛，你可以采取以下简单的步骤来参与其中：&lt;/p&gt;
+
+&lt;p&gt;1.Join https://www.meetup.com and fill in the necessary details about yourself and your interests.&lt;/p&gt;
+
+&lt;p&gt;1.加入 https://www.meetup.com 并填写关于你自身以及你的兴趣点的必要信息。&lt;/p&gt;
+
+&lt;p&gt;2.Click Create a Meetup and choose your location.&lt;/p&gt;
+
+&lt;p&gt;2.点击开展一个论坛并选择你所在的地点。&lt;/p&gt;
+
+&lt;p&gt;3.Choose EOS as a topic related to your Meetup. This will link you to the EOS topics page (https://www.meetup.com/topics/eos), which will allow others to easily locate you when they want to find a Meetup in their area.&lt;/p&gt;
+
+&lt;p&gt;3.选择EOS作为一个论坛相关的主题。这会将你和EOS主题页面 (https://www.meetup.com/topics/eos)相关联起来，这将使得他人很容易定位到你的位置，当他们想寻找一场EOS论坛在他们地区。&lt;/p&gt;
+
+&lt;p&gt;4.Name your Meetup group. Keep it simple so people can find your group when they search (example: EOS London). You’ll also need to fill out a description of your Meetup Group.&lt;/p&gt;
+
+&lt;p&gt;4.为你的论坛团体命名。你应该尽可能使论坛名字简单，这样会使人们在寻找论坛时更容易找到你们的团队（例如：EOS London）。你还需要给你的论坛填写必要的描述。&lt;/p&gt;
+
+&lt;p&gt;5.Invite people to join and create Meetup events within your group on desired topics.&lt;/p&gt;
+
+&lt;p&gt;5.邀请人们来加入你的团队，并在你想要的话题中创建论坛的活动。&lt;/p&gt;
+
+&lt;h2 id=&quot;从blockone团队得到的支持&quot;&gt;从block.one团队得到的支持&lt;/h2&gt;
+
+&lt;p&gt;Contact events@block.one for access to written content, graphics, and other useful links. These materials can be used on your Meetup page or at related events and will continue to grow with relevant content. You can also find additional content on our EOS resources page: https://eos.io/resources/.&lt;/p&gt;
+
+&lt;p&gt;通过events@block.one（一个用于访问书面内容、图形和其他有用的链接）联系。这些材料可以在您的论坛页面或相关事件上使用，并将继续与相关内容一起增长。。你还可以找到更多内容在我们的EOS资源页面:https://eos.io/resources/。&lt;/p&gt;
+
+&lt;p&gt;For any information on inviting speakers, additional material, or general enquires regarding your Meetup please contact the events team.&lt;/p&gt;
+
+&lt;p&gt;有关邀请者、额外资料或一般查询的资料，请与活动小组联络。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。&lt;/p&gt;
+
+&lt;p&gt;如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;点击查看项目GITHUB，及更多的译文…&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+
+&lt;p&gt;林炜鑫，在读硕士，专注区块链技术研究与行业分析，欢迎加微信号:happyzai1993。&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;
+
+&lt;hr /&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">Start an EOS Meetup in your community 在你的社区开始一个EOS论坛</summary></entry><entry><title type="html">How is eos different from everything else</title><link href="http://localhost:4000/How-Is-EOS-different-from-everything-else/" rel="alternate" type="text/html" title="How is eos different from everything else" /><published>2017-10-15T00:00:00+08:00</published><updated>2017-10-15T00:00:00+08:00</updated><id>http://localhost:4000/How%20Is%20EOS%20different%20from%20everything%20else</id><content type="html" xml:base="http://localhost:4000/How-Is-EOS-different-from-everything-else/">&lt;h1 id=&quot;how-is-eos-different-from-everything-else--eos与其他区块链平台有什么不同&quot;&gt;How Is EOS different from everything else?  EOS与其他区块链平台有什么不同？&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;原文链接：&lt;a href=&quot;https://steemit.com/eos/@eosio/how-is-eos-different-from-everything-else&quot;&gt;https://steemit.com/eos/@eosio/how-is-eos-different-from-everything-else&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译：&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;区块链中文字幕组&lt;/a&gt;  &lt;a href=&quot;https://github.com/byzhangkui&quot;&gt;张奎&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译时间：2017-10-15&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Hi Everyone,&lt;br /&gt;
+大家好，&lt;/p&gt;
+
+&lt;p&gt;In our community channels we are frequently asked how EOS compares to other blockchain platforms.&lt;br /&gt;
+在我们社区频道里，经常被问到如何比较EOS与其他到区块链平台。&lt;/p&gt;
+
+&lt;p&gt;We can’t comment on the innovations of others, but EOS is the only blockchain platform designed with:&lt;br /&gt;
+我们不谈论其他平台到创新，但EOS是区块链平台中唯一有以下设计的：&lt;/p&gt;
+
+&lt;h2 id=&quot;parallel-processing&quot;&gt;Parallel Processing&lt;/h2&gt;
+&lt;h2 id=&quot;并行处理&quot;&gt;并行处理&lt;/h2&gt;
+&lt;p&gt;Parallel processing capabilities bring continuous scalability and a reliable high performance foundation for your applications. Existing single threaded capabilities force every application to share the capacity and performance of one single-threaded blockchain, create hard scaling limits, and eventually suffer from network congestion that may result in platform-wide downtime.&lt;br /&gt;
+并行处理能力能为你的应用带来持续的可扩展性和可靠的高性能基础。现有的单线程能力强制每个应用程序共享一个单线程区块的容量和性能，创建伸缩限制，并最终遭受可能导致平台范围停机的网络拥塞。&lt;/p&gt;
+
+&lt;h2 id=&quot;a-decentralized-operating-system&quot;&gt;A Decentralized Operating System&lt;/h2&gt;
+&lt;h2 id=&quot;一个去中心化的操作系统&quot;&gt;一个去中心化的操作系统&lt;/h2&gt;
+&lt;p&gt;The EOS.IO software assists developers with databases, permissions, scheduling, authentication, and inter-application communication. This greatly simplifies the process of building and deploying decentralized applications, and widens the potential developer audience to anyone with basic web development experience.&lt;br /&gt;
+EOS.IO软件帮助开发人员进行数据库，权限，调度，认证和应用程序间通信。 这大大简化了构建和部署去中心化应用程序的过程，并将潜在开发人员的受众扩大到具有基础Web开发经验的任何人。&lt;/p&gt;
+
+&lt;p&gt;The EOS.IO software is designed to allow developers to leverage the blockchain without sacrificing development time or compromising mainstream performance standards.&lt;br /&gt;
+EOS.IO软件旨在允许开发人员在不牺牲开发时间或损害主流性能标准的情况下利用区块链。&lt;/p&gt;
+
+&lt;h2 id=&quot;a-ratifiable-constitution&quot;&gt;A Ratifiable Constitution&lt;/h2&gt;
+&lt;h2 id=&quot;可变更的宪法&quot;&gt;可变更的宪法&lt;/h2&gt;
+&lt;p&gt;The EOS constitution governs the block producers and every transaction on the network through a peer to peer User License Agreement. The Constitution outlines a transparent framework for dispute resolution, force majeure decision making, and creates a common default arbitration framework for all users globally.&lt;br /&gt;
+EOS宪法通过对等用户许可协议管理块生产者和网络上的每个交易。 宪法概述了解决争议，不可抗力决策的透明框架，并为所有用户制定了一个共同的默认仲裁框架。&lt;/p&gt;
+
+&lt;h2 id=&quot;self-sufficiency-and-evolution&quot;&gt;Self Sufficiency and Evolution&lt;/h2&gt;
+&lt;h2 id=&quot;自给自足和进化&quot;&gt;自给自足和进化&lt;/h2&gt;
+&lt;p&gt;An EOS blockchain is an entirely self sufficient, self funding, distributed network with all governance on chain; it does not rely on any single foundation, corporation, or individual.&lt;br /&gt;
+EOS区块链是一个完全自给自足，财务自足，链上治理的分发网络; 它不依赖于任何单一的基金会，公司或个人。&lt;/p&gt;
+
+&lt;p&gt;Slow predictable creation of new tokens (max 5% annually) are distributed by the community through elected smart contracts to fund network operation and growth.&lt;br /&gt;
+社区通过选举智能合约分发新的代币（每年最多5％），为网络运营和增长提供资金。&lt;/p&gt;
+
+&lt;h2 id=&quot;one-of-the-largest-and-most-diversified-blockchain-communities&quot;&gt;One of the largest and most diversified blockchain communities&lt;/h2&gt;
+&lt;h2 id=&quot;最大和最多元化的块链社区之一&quot;&gt;最大和最多元化的块链社区之一&lt;/h2&gt;
+&lt;p&gt;EOS is built on the backbone of the Delegated Proof of Stake (DPOS) community that has built and run the largest smart businesses in the blockchain ecosystem today - BitShares and Steem. With more than a billion dollars in market capitalization and more network activity than both Bitcoin and Ethereum combined, this community has begun pushing its innovations to the forefront of the space and are expanding the boundaries of what is capable.&lt;br /&gt;
+EOS建立在DPOS社区的骨干网上，该社区今天已经在区块链生态上构建并运行着最大的智能业务 - BitShares和Steem。 这个社区有着超过10亿美元的市值，以及比比特币和以太坊网络总和更多的网络活动，社区已经开始将其创新推向了这个领域的前沿，并且扩大了能力的界限。&lt;/p&gt;
+
+&lt;p&gt;We believe the EOS.IO technological innovations and the DPOS community is poised to rapidly accelerate the buildout and adoption of the decentralised economy.&lt;br /&gt;
+我们相信，EOS.IO技术创新和DPOS社区准备迅速加快去中心化经济的创建和采用。&lt;/p&gt;
+
+&lt;p&gt;More information coming this week.&lt;br /&gt;
+敬请期待本周更多的信息。&lt;/p&gt;
+
+&lt;p&gt;block.one&lt;/p&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。&lt;/p&gt;
+
+&lt;p&gt;如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;点击查看项目GITHUB，及更多的译文…&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+
+&lt;p&gt;张奎 区块链技术爱好者，热衷于区块链业务创新研究与分析，欢迎加微信号:tongxwl&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">How Is EOS different from everything else? EOS与其他区块链平台有什么不同？</summary></entry><entry><title type="html">Eos Command Line Client</title><link href="http://localhost:4000/Eos-command-line-client/" rel="alternate" type="text/html" title="Eos Command Line Client" /><published>2017-10-15T00:00:00+08:00</published><updated>2017-10-15T00:00:00+08:00</updated><id>http://localhost:4000/Eos-command-line-client</id><content type="html" xml:base="http://localhost:4000/Eos-command-line-client/">&lt;h1 id=&quot;eos-command-line-client-eosc-eos-命令行客户端eosc&quot;&gt;EOS Command Line Client (eosc) EOS 命令行客户端（&lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt;）&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文翻译自：https://eosio.github.io/eos/group__eosc.html&lt;/p&gt;
+
+  &lt;p&gt;译者：&lt;a href=&quot;https://github.com/gumoon&quot;&gt;区块链中文字幕组 胡亮&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译时间：2017-10-15&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Tool for sending transactions and querying state from &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;向 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 节点发送交易和从 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 节点查询状态的工具。&lt;/p&gt;
+
+&lt;h2 id=&quot;table-of-contents-目录&quot;&gt;Table of Contents 目录&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Introduction to EOSC EOSC 简介&lt;/li&gt;
+  &lt;li&gt;Creating a Wallet 创建钱包&lt;/li&gt;
+  &lt;li&gt;Importing Key to Wallet 向钱包导入密钥&lt;/li&gt;
+  &lt;li&gt;Locking and Unlocking Wallet 加锁和解锁钱包&lt;/li&gt;
+  &lt;li&gt;Opening Wallet 打开钱包&lt;/li&gt;
+  &lt;li&gt;Creating an Account 创建账号&lt;/li&gt;
+  &lt;li&gt;Transfer EOS 转移 EOS&lt;/li&gt;
+  &lt;li&gt;Getting Transaction 获取交易记录&lt;/li&gt;
+  &lt;li&gt;Creating a Contract 创建合约&lt;/li&gt;
+  &lt;li&gt;Pushing Message to Contract 向合约发送消息&lt;/li&gt;
+  &lt;li&gt;Querying Contract 查询合约&lt;/li&gt;
+  &lt;li&gt;Connecting to Particular Node 连接到特定的节点&lt;/li&gt;
+  &lt;li&gt;Using Separate Wallet App 使用单独的钱包应用程序&lt;/li&gt;
+  &lt;li&gt;Skipping Signature 跳过签名&lt;/li&gt;
+  &lt;li&gt;Additional Documentation 补充文档&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;introduction-to-eos-wallet-process-eos-钱包进程简介&quot;&gt;Introduction to EOS Wallet Process EOS 钱包进程简介&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; is a command line tool that interfaces with the REST api exposed by &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt;. In order to use &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; you will need to have a local copy of &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; running and configured to load the &lt;code class=&quot;highlighter-rouge&quot;&gt;'eos::chain_api_plugin'&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; 是一个命令行工具，用于跟 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 节点暴露的 REST 接口进行交互。使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; 之前，你需要在本地运行配置了加载 &lt;code class=&quot;highlighter-rouge&quot;&gt;'eos::chain_api_plugin'&lt;/code&gt; 插件的 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 服务。&lt;/p&gt;
+
+&lt;p&gt;In order to sign transaction and push it to the blockchain, you will need to have the &lt;code class=&quot;highlighter-rouge&quot;&gt;'eos::wallet_api_plugin'&lt;/code&gt; loaded.&lt;/p&gt;
+
+&lt;p&gt;为了签名交易和推送交易到区块链，你需要配置 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 服务加载 &lt;code class=&quot;highlighter-rouge&quot;&gt;'eos::wallet_api_plugin'&lt;/code&gt; 插件。&lt;/p&gt;
+
+&lt;p&gt;And in order to query account history and transaction, you will need to have the ‘eos::account_history_api_plugin’ loaded.&lt;/p&gt;
+
+&lt;p&gt;为了查询账户历史和账号交易记录，你需要配置 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 服务加载 &lt;code class=&quot;highlighter-rouge&quot;&gt;'eos::account_history_api_plugin'&lt;/code&gt; 插件。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; # Plugin(s) to enable, may be specified multiple times
+ plugin = eos::producer_plugin
+ plugin = eos::chain_api_plugin
+ plugin = eos::wallet_api_plugin
+ plugin = eos::account_history_api_plugin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After starting &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; you should be able to query the current blockchain state like so:&lt;/p&gt;
+
+&lt;p&gt;启动了 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 服务之后，你应该能像这样查询区块链状态：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc get info
+{
+ &quot;head_block_num&quot;: 25048,
+ &quot;last_irreversible_block_num&quot;: 25027,
+ &quot;head_block_id&quot;: &quot;000061d8ae49d6af614e02779e19261959f22d6d9f37906ed5db2dabd88be142&quot;,
+ &quot;head_block_time&quot;: &quot;2017-07-25T17:44:48&quot;,
+ &quot;head_block_producer&quot;: &quot;initi&quot;,
+ &quot;recent_slots&quot;: &quot;1110000000000000000000000000000000000000000000000000000000000011&quot;,
+ &quot;participation_rate&quot;: &quot;0.07812500000000000&quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;creating-a-wallet-创建钱包&quot;&gt;Creating a Wallet 创建钱包&lt;/h2&gt;
+
+&lt;p&gt;Any transaction sent to the blockchain will need to be signed by the respective authority’s private key. Before you will be able to sign the transaction, you will need a wallet to store and manage the private key.&lt;/p&gt;
+
+&lt;p&gt;任何发往区块链的交易都需要被各自的授权人使用私钥签名。在你签名交易之前，你需要一个钱包来存储和管理私钥。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc wallet create
+Creating wallet: default
+Save password to use in the future to unlock this wallet.
+Without password imported keys will not be retrievable.
+&quot;PW5JD9cw9YY288AXPvnbwUk5JK4Cy6YyZ83wzHcshu8F2akU9rRWE&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This will create a wallet called ‘default’ inside &lt;code class=&quot;highlighter-rouge&quot;&gt;eos-walletd&lt;/code&gt; and return a password that you can use to unlock your wallet in the future.&lt;/p&gt;
+
+&lt;p&gt;这个命令在 &lt;code class=&quot;highlighter-rouge&quot;&gt;eos-walletd&lt;/code&gt; 服务内创建一个名为 ‘default’ 的钱包并且返回一个密码。未来，你将使用该密码解锁你的钱包。&lt;/p&gt;
+
+&lt;p&gt;You can create multiple wallets by specifying unique name.&lt;/p&gt;
+
+&lt;p&gt;你可以通过指定唯一的钱包名来创建多个钱包。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc wallet create -n second-wallet
+Creating wallet: second-wallet
+Save password to use in the future to unlock this wallet.
+Without password imported keys will not be retrievable.
+&quot;PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And you will be see it in the list of your wallets&lt;/p&gt;
+
+&lt;p&gt;然后，你将在你的钱包列表中看到它。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc wallet list
+Wallets:
+[
+  &quot;default *&quot;,
+  &quot;second-wallet *&quot;
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note 注意
+For any wallet operation, if you don’t specify the name of the wallet, it will always resort to default wallet
+对于任意的钱包操作，如果你未指定钱包名，默认操作 default 钱包。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;importing-key-to-wallet-向钱包导入私钥&quot;&gt;Importing Key to Wallet 向钱包导入私钥&lt;/h2&gt;
+
+&lt;p&gt;Import the key that you want to use to sign the transaction to your wallet. The following will import key for genesis accounts (i.e. inita, initb, initc, …, initu)&lt;/p&gt;
+
+&lt;p&gt;导入你想用于加密交易的私钥到你的钱包。下面的命令为创始账号（像：inita, initb, initc, 。。。, initu）导入私钥。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc wallet import 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
+imported private key for: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You will then be able to see the list of imported private keys and their respective public key。&lt;/p&gt;
+
+&lt;p&gt;然后，你能看到导入的私钥和它们对应的公钥列表：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc wallet keys
+[[
+    &quot;EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV&quot;,
+    &quot;5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3&quot;
+  ]
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;locking-and-unlocking-wallet-加锁和解锁钱包&quot;&gt;Locking and Unlocking Wallet 加锁和解锁钱包&lt;/h2&gt;
+
+&lt;p&gt;To keep your private key safe, lock your wallet&lt;/p&gt;
+
+&lt;p&gt;为了私钥的安全，对钱包加锁。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc wallet lock -n second-wallet
+Locked: 'second-wallet'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Notice that the locked wallet doesn’t have * symbol in the list&lt;/p&gt;
+
+&lt;p&gt;注意，被加锁的钱包在查看钱包列表时不显示符号 * ：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc wallet list
+Wallets:
+[
+  &quot;default *&quot;,
+  &quot;second-wallet&quot;
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To unlock it specify the password you get when creating the wallet&lt;/p&gt;
+
+&lt;p&gt;解锁钱包需要指定创建钱包时生成的密码：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc wallet unlock -n second-wallet --password PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw
+Unlocked: 'second-wallet'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;opening-wallet-打开钱包&quot;&gt;Opening Wallet 打开钱包&lt;/h2&gt;
+
+&lt;p&gt;All of the wallets data are store inside &lt;code class=&quot;highlighter-rouge&quot;&gt;data_dir&lt;/code&gt; folder. When you restart your wallet app (in this case &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt;), you will need to open the wallet so &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; can have access to it.&lt;/p&gt;
+
+&lt;p&gt;所有钱包数据都存储在 &lt;code class=&quot;highlighter-rouge&quot;&gt;data_dir&lt;/code&gt; 文件夹内。当你重启钱包程序（现在指：&lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt;），你需要打开钱包来让 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; 能够访问它。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc wallet list
+Wallets: []
+$ ./eosc wallet open
+Wallets: [
+  &quot;default&quot;
+]
+$ ./eosc wallet open -n second-wallet
+Wallets: [
+  &quot;default&quot;,
+  &quot;second-wallet&quot;
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note 注意
+The wallet is locked by default
+钱包默认锁定。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;creating-an-account-创建账号&quot;&gt;Creating an Account 创建账号&lt;/h2&gt;
+
+&lt;p&gt;In order to create an account you will need two new keys: owner and active. You can ask &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; to create some keys for you:&lt;/p&gt;
+
+&lt;p&gt;创建账号需要两个新的私钥：owner 和 active。你可以让 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; 创建它们。&lt;/p&gt;
+
+&lt;p&gt;This will be your owner key,&lt;/p&gt;
+
+&lt;p&gt;这是你的 owner 私钥,&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc create key
+public: EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq
+private: 5JKbLfCXgcafDQVwHMm3shHt6iRWgrr9adcmt6vX3FNjAEtJGaT
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And this will be your active key,&lt;/p&gt;
+
+&lt;p&gt;这是你的 active 私钥,&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc create key
+public: EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA
+private: 5Hv22aPcjnENBv6X9o9nKGdkfrW44En6z4zJUt2PobAvbQXrT9z
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note 注意
+&lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; does not save the generated private key.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; 不保存生成的私钥。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Next we will create the account tester, but because all accounts need to be created by an existing account we will ask the inita account to create tester using the owner and active keys created above. inita was specified in the genesis file.&lt;/p&gt;
+
+&lt;p&gt;接下来，我们将创建 tester 账号，但是由于所有的账号都需要由已经存在的账号创建，我们让 inita 使用上面创建的 owner 和 active 私钥来创建账号 tester。inita 存在 genesis 文件中。&lt;/p&gt;
+
+&lt;p&gt;In order to push transaction as inita, you first need to import inita’s private key to your wallet&lt;/p&gt;
+
+&lt;p&gt;为了使用 inita 来发送交易，你需要首先导入 inita 的私钥到你的钱包。&lt;em&gt;（上面已经讲过怎么往钱包导入私钥）&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Then create an account called tester&lt;/p&gt;
+
+&lt;p&gt;然后创建 tester 账号。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc create account inita tester EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA
+{
+  &quot;transaction_id&quot;: &quot;6acd2ece68c4b86c1fa209c3989235063384020781f2c67bbb80bc8d540ca120&quot;,
+  &quot;processed&quot;: {
+    &quot;refBlockNum&quot;: &quot;25217&quot;,
+    &quot;refBlockPrefix&quot;: &quot;2095475630&quot;,
+    &quot;expiration&quot;: &quot;2017-07-25T17:54:55&quot;,
+    &quot;scope&quot;: [
+      &quot;eos&quot;,
+      &quot;inita&quot;
+    ],
+    &quot;signatures&quot;: [],
+    &quot;messages&quot;: [{
+        &quot;code&quot;: &quot;eos&quot;,
+        &quot;type&quot;: &quot;newaccount&quot;,
+        &quot;authorization&quot;: [{
+            &quot;account&quot;: &quot;inita&quot;,
+            &quot;permission&quot;: &quot;active&quot;
+          }
+        ],
+        &quot;data&quot;: &quot;c9251a0000000000b44c5a2400000000010000000102bcca6347d828d4e1868b7dfa91692a16d5b20d0ee3d16a7ca2ddcc7f6dd03344010000010000000102bcca6347d828d4e1868b7dfa91692a16d5b20d0ee3d16a7ca2ddcc7f6dd03344010000010000000001c9251a000000000061d0640b000000000100010000000000000008454f5300000000&quot;
+      }
+    ],
+    &quot;output&quot;: [{
+        &quot;notify&quot;: [],
+        &quot;sync_transactions&quot;: [],
+        &quot;async_transactions&quot;: []
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can see that tester is now the controlled_account under inita&lt;/p&gt;
+
+&lt;p&gt;你能看到 tester 现在的控制账号是 inita：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc get servants inita
+{
+  &quot;controlled_accounts&quot;: [
+    &quot;tester&quot;
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;transfer-eos-转移-eos&quot;&gt;Transfer EOS 转移 EOS&lt;/h2&gt;
+
+&lt;p&gt;After creating the account we can view the current account status like so:&lt;/p&gt;
+
+&lt;p&gt;创建完账号后，我们可以像这样查看当前账号状态：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc get account tester
+{
+  &quot;name&quot;: &quot;tester&quot;,
+  &quot;eos_balance&quot;: 0,
+  &quot;staked_balance&quot;: 1,
+  &quot;unstaking_balance&quot;: 0,
+  &quot;last_unstaking_time&quot;: &quot;1969-12-31T23:59:59&quot;,
+  &quot;permissions&quot;: [{
+      &quot;name&quot;: &quot;active&quot;,
+      &quot;parent&quot;: &quot;owner&quot;,
+      &quot;required_auth&quot;: {
+        &quot;threshold&quot;: 1,
+        &quot;keys&quot;: [{
+            &quot;key&quot;: &quot;EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA&quot;,
+            &quot;weight&quot;: 1
+          }
+        ],
+        &quot;accounts&quot;: []
+      }
+    },{
+      &quot;name&quot;: &quot;owner&quot;,
+      &quot;parent&quot;: &quot;owner&quot;,
+      &quot;required_auth&quot;: {
+        &quot;threshold&quot;: 1,
+        &quot;keys&quot;: [{
+            &quot;key&quot;: &quot;EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq&quot;,
+            &quot;weight&quot;: 1
+          }
+        ],
+        &quot;accounts&quot;: []
+      }
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You will note that there is no balance because almost all genesis EOS tokens are currently allocated to the eos account and genesis accounts.&lt;/p&gt;
+
+&lt;p&gt;你将注意到新创建的账号没有余额。因为几乎所有的初始 EOS 代币当前都被分配给了 eos 账号和创始账号。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;eos&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;eos_balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;69000000.0000 EOS&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;staked_balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0.0000 EOS&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;unstaking_balance&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0.0000 EOS&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;last_unstaking_time&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1969-12-31T23:59:59&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Since we have the private key of the genesis accounts (i.e. inita, initb, initc, etc) in the wallet. We can fund our tester account via eosc through any of the genesis account with the following command:&lt;/p&gt;
+
+&lt;p&gt;因为我们钱包里有创始账号的私钥。所以我们能够通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; ，使用以下命令，从创始账号给 tester 账号转账。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc transfer inita tester 1000
+{
+  &quot;transaction_id&quot;: &quot;eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703&quot;,
+  &quot;processed&quot;: {
+    &quot;refBlockNum&quot;: 2206,
+    &quot;refBlockPrefix&quot;: 221394282,
+    &quot;expiration&quot;: &quot;2017-09-05T08:03:58&quot;,
+    &quot;scope&quot;: [
+      &quot;inita&quot;,
+      &quot;tester&quot;
+    ],
+    &quot;signatures&quot;: [
+      &quot;1f22e64240e1e479eee6ccbbd79a29f1a6eb6020384b4cca1a958e7c708d3e562009ae6e60afac96f9a3b89d729a50cd5a7b5a7a647540ba1678831bf970e83312&quot;
+    ],
+    &quot;messages&quot;: [{
+        &quot;code&quot;: &quot;eos&quot;,
+        &quot;type&quot;: &quot;transfer&quot;,
+        &quot;authorization&quot;: [{
+            &quot;account&quot;: &quot;inita&quot;,
+            &quot;permission&quot;: &quot;active&quot;
+          }
+        ],
+        &quot;data&quot;: {
+          &quot;from&quot;: &quot;inita&quot;,
+          &quot;to&quot;: &quot;tester&quot;,
+          &quot;amount&quot;: 1000,
+          &quot;memo&quot;: &quot;&quot;
+        },
+        &quot;hex_data&quot;: &quot;000000008040934b00000000c84267a1e80300000000000000&quot;
+      }
+    ],
+    &quot;output&quot;: [{
+        &quot;notify&quot;: [{
+            &quot;name&quot;: &quot;tester&quot;,
+            &quot;output&quot;: {
+              &quot;notify&quot;: [],
+              &quot;sync_transactions&quot;: [],
+              &quot;async_transactions&quot;: []
+            }
+          },{
+            &quot;name&quot;: &quot;inita&quot;,
+            &quot;output&quot;: {
+              &quot;notify&quot;: [],
+              &quot;sync_transactions&quot;: [],
+              &quot;async_transactions&quot;: []
+            }
+          }
+        ],
+        &quot;sync_transactions&quot;: [],
+        &quot;async_transactions&quot;: []
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now we can verify that the funds were received.&lt;/p&gt;
+
+&lt;p&gt;现在，我们验证接收到的资金。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc get account tester
+{
+  &quot;name&quot;: &quot;tester&quot;,
+  &quot;eos_balance&quot;: &quot;0.1000 EOS&quot;,
+  &quot;staked_balance&quot;: &quot;0.0001 EOS&quot;,
+  &quot;unstaking_balance&quot;: &quot;0.0000 EOS&quot;,
+  &quot;last_unstaking_time&quot;: &quot;1969-12-31T23:59:59&quot;,
+  &quot;permissions&quot;: [{
+      &quot;name&quot;: &quot;active&quot;,
+      &quot;parent&quot;: &quot;owner&quot;,
+      &quot;required_auth&quot;: {
+        &quot;threshold&quot;: 1,
+        &quot;keys&quot;: [{
+            &quot;key&quot;: &quot;EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA&quot;,
+            &quot;weight&quot;: 1
+          }
+        ],
+        &quot;accounts&quot;: []
+      }
+    },{
+      &quot;name&quot;: &quot;owner&quot;,
+      &quot;parent&quot;: &quot;owner&quot;,
+      &quot;required_auth&quot;: {
+        &quot;threshold&quot;: 1,
+        &quot;keys&quot;: [{
+            &quot;key&quot;: &quot;EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq&quot;,
+            &quot;weight&quot;: 1
+          }
+        ],
+        &quot;accounts&quot;: []
+      }
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;getting-transaction-获取交易记录&quot;&gt;Getting Transaction 获取交易记录&lt;/h2&gt;
+
+&lt;p&gt;With &lt;code class=&quot;highlighter-rouge&quot;&gt;account_history_api_plugin&lt;/code&gt; loaded in &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt;, we can query for particular transaction&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 服务加载了 &lt;code class=&quot;highlighter-rouge&quot;&gt;account_history_api_plugin&lt;/code&gt; 插件，则我们能查询特定的交易。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc get transaction eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703
+{
+  &quot;transaction_id&quot;: &quot;eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703&quot;,
+  &quot;processed&quot;: {
+    &quot;refBlockNum&quot;: 2206,
+    &quot;refBlockPrefix&quot;: 221394282,
+    &quot;expiration&quot;: &quot;2017-09-05T08:03:58&quot;,
+    &quot;scope&quot;: [
+      &quot;inita&quot;,
+      &quot;tester&quot;
+    ],
+    &quot;signatures&quot;: [
+      &quot;1f22e64240e1e479eee6ccbbd79a29f1a6eb6020384b4cca1a958e7c708d3e562009ae6e60afac96f9a3b89d729a50cd5a7b5a7a647540ba1678831bf970e83312&quot;
+    ],
+    &quot;messages&quot;: [{
+        &quot;code&quot;: &quot;eos&quot;,
+        &quot;type&quot;: &quot;transfer&quot;,
+        &quot;authorization&quot;: [{
+            &quot;account&quot;: &quot;inita&quot;,
+            &quot;permission&quot;: &quot;active&quot;
+          }
+        ],
+        &quot;data&quot;: {
+          &quot;from&quot;: &quot;inita&quot;,
+          &quot;to&quot;: &quot;tester&quot;,
+          &quot;amount&quot;: 1000,
+          &quot;memo&quot;: &quot;&quot;
+        },
+        &quot;hex_data&quot;: &quot;000000008040934b00000000c84267a1e80300000000000000&quot;
+      }
+    ],
+    &quot;output&quot;: [{
+        &quot;notify&quot;: [{
+            &quot;name&quot;: &quot;tester&quot;,
+            &quot;output&quot;: {
+              &quot;notify&quot;: [],
+              &quot;sync_transactions&quot;: [],
+              &quot;async_transactions&quot;: []
+            }
+          },{
+            &quot;name&quot;: &quot;inita&quot;,
+            &quot;output&quot;: {
+              &quot;notify&quot;: [],
+              &quot;sync_transactions&quot;: [],
+              &quot;async_transactions&quot;: []
+            }
+          }
+        ],
+        &quot;sync_transactions&quot;: [],
+        &quot;async_transactions&quot;: []
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Also we can query list of transactions performed by certain account starting from recent one&lt;/p&gt;
+
+&lt;p&gt;我们也能查询指定账号最近的交易列表。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc get transactions inita
+[
+  {
+    &quot;transaction_id&quot;: &quot;eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703&quot;,
+    ...
+  },
+  {
+    &quot;transaction_id&quot;: &quot;6acd2ece68c4b86c1fa209c3989235063384020781f2c67bbb80bc8d540ca120&quot;,
+    ...
+  },
+  ...
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;creating-a-contract-创建合约&quot;&gt;Creating a Contract 创建合约&lt;/h2&gt;
+
+&lt;p&gt;In this section we will use &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; to create and publish a currency contract. You can find the example currency contract in the &lt;code class=&quot;highlighter-rouge&quot;&gt;eos/contracts/currency&lt;/code&gt; directory.&lt;/p&gt;
+
+&lt;p&gt;这部分我们使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; 来创建和发布一个货币合约。你能在 &lt;code class=&quot;highlighter-rouge&quot;&gt;eos/contracts/currency&lt;/code&gt; 目录找到这个货币合约示例。&lt;/p&gt;
+
+&lt;p&gt;The first step is to create an account for currency. We will have the inita account create the currency account. Ensure you have inita private key imported.&lt;/p&gt;
+
+&lt;p&gt;第一步是为这个合约创建一个账号。我们将使用 inita 账号来创建这个 currency 账号。确保你已经导入了 inita 账号的私钥到钱包。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc create account inita currency EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The next step is to publish the contract (.wast) and its abi (.abi).&lt;/p&gt;
+
+&lt;p&gt;接着，发布合约（.wast) 和 它的 abi (.abi)。&lt;/p&gt;
+
+&lt;p&gt;We will need currency active key in our wallet for this&lt;/p&gt;
+
+&lt;p&gt;我们需要导入 currency 账号的 active 私钥。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc import 5Hv22aPcjnENBv6X9o9nKGdkfrW44En6z4zJUt2PobAvbQXrT9z
+imported private key for: EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then proceed with setting the code&lt;/p&gt;
+
+&lt;p&gt;然后，执行设置code（合约）。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc set contract currency ../../../contracts/currency/currency.wast ../../../contracts/currency/currency.abi
+Reading WAST...
+Assembling WASM...
+Publishing contract...
+{
+  &quot;transaction_id&quot;: &quot;9990306e13f630a9c5436a5a0b6fb8fe2c7f3da2f342b4898a39c4a2c17dcdb3&quot;,
+  &quot;processed&quot;: {
+    &quot;refBlockNum&quot;: 1208,
+    &quot;refBlockPrefix&quot;: 3058534156,
+    &quot;expiration&quot;: &quot;2017-08-24T18:29:52&quot;,
+    &quot;scope&quot;: [
+      &quot;currency&quot;,
+      &quot;eos&quot;
+    ],
+    &quot;signatures&quot;: [],
+    &quot;messages&quot;: [{
+        &quot;code&quot;: &quot;eos&quot;,
+        &quot;type&quot;: &quot;setcode&quot;,
+        &quot;authorization&quot;: [{
+            &quot;account&quot;: &quot;currency&quot;,
+            &quot;permission&quot;: &quot;active&quot;
+          }
+        ],
+        &quot;data&quot;: &quot;00000079b822651d0000e8150061736d0100000001390a60017e0060037e7e7f017f60047e7e7f7f017f60017f0060057e7e7e7f7f017f60027f7f0060027f7f017f60027e7f0060000060027e7e00029d010a03656e7606617373657274000503656e76086c6f61645f693634000403656e76067072696e7469000003656e76067072696e746e000003656e76067072696e7473000303656e760b726561644d657373616765000603656e760a72656d6f76655f693634000103656e760b7265717569726541757468000003656e760d726571756972654e6f74696365000003656e760973746f72655f6936340002030706000007030809040401700000050301000107cc0107066d656d6f72790200205f5a4e33656f733133726571756972654e6f74696365454e535f344e616d6545000a1e5f5a4e33656f7331317265717569726541757468454e535f344e616d6545000b345f5a4e3863757272656e6379313273746f72654163636f756e74454e33656f73344e616d6545524b4e535f374163636f756e7445000c355f5a4e3863757272656e637932336170706c795f63757272656e63795f7472616e7366657245524b4e535f385472616e7366657245000d04696e6974000e056170706c79000f0a9d0d060600200010080b0600200010070b3400024020012903084200510d0020004280808080a8d7bee3082001411010091a0f0b20004280808080a8d7bee308200110061a0b8a0604017e027f047e017f4100410028020441206b2208360204200029030821052000290300210720002903102104411010042004100241c000100442808080c887d7c8b21d100341d00010042007100341e000100420051003200029030021052000290308100820051008200029030010072000290300210142002105423b210441f00021034200210603400240024002400240024020054206560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b420021052008420037031820082006370310200142808080c887d7c8b21d4280808080a8d7bee308200841106a411010011a200041086a2903002101423b210441f00021034200210603400240024002400240024020054206560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b2008200637030020084200370308200142808080c887d7c8b21d4280808080a8d7bee3082008411010011a200841186a2203290300200041106a22022903005a418001100020032003290300200229030022057d370300200520082903087c20055a41b00110002008200829030820022903007c370308200029030021050240024020032903004200510d0020054280808080a8d7bee308200841106a411010091a0c010b20054280808080a8d7bee308200841106a10061a0b200041086a290300210502400240200841086a2903004200510d0020054280808080a8d7bee3082008411010091a0c010b20054280808080a8d7bee308200810061a0b4100200841206a3602040b980303027f057e017f4100410028020441106b220736020442002103423b210241e00121014200210403400240024002400240024020034207560d0020012c00002200419f7f6a41ff017141194b0d01200041a0016a21000c020b420021052003420b580d020c030b200041ea016a41002000414f6a41ff01714105491b21000b2000ad42388642388721050b2005421f83200242ffffffff0f838621050b200141016a2101200342017c2103200520048421042002427b7c2202427a520d000b42002103423b210241f00021014200210603400240024002400240024020034206560d0020012c00002200419f7f6a41ff017141194b0d01200041a0016a21000c020b420021052003420b580d020c030b200041ea016a41002000414f6a41ff01714105491b21000b2000ad42388642388721050b2005421f83200242ffffffff0f838621050b200141016a2101200342017c2103200520068421062002427b7c2202427a520d000b2007428094ebdc033703082007200637030020044280808080a8d7bee3082007411010091a4100200741106a3602040bb10303027f047e017f4100410028020441206b220836020442002105423b210441e00121034200210603400240024002400240024020054207560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b024020062000520d0042002105423b210441f00121034200210603400240024002400240024020054207560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b20062001520d00200842003703102008420037030820084200370318200841086a4118100541174b4180021000200841086a100d0b4100200841206a3602040b0bff010b0041040b04200500000041100b2254686973206170706561727320746f2062652061207472616e73666572206f6620000041c0000b0220000041d0000b072066726f6d20000041e0000b0520746f20000041f0000b086163636f756e7400004180010b2c696e746567657220756e646572666c6f77207375627472616374696e6720746f6b656e2062616c616e6365000041b0010b26696e7465676572206f766572666c6f7720616464696e6720746f6b656e2062616c616e6365000041e0010b0963757272656e6379000041f0010b097472616e7366657200004180020b1e6d6573736167652073686f72746572207468616e2065787065637465640000fd02046e616d651006617373657274020000086c6f61645f693634050000000000067072696e74690100067072696e746e0100067072696e747301000b726561644d6573736167650200000a72656d6f76655f693634030000000b726571756972654175746801000d726571756972654e6f7469636501000973746f72655f6936340400000000205f5a4e33656f733133726571756972654e6f74696365454e535f344e616d65450101301e5f5a4e33656f7331317265717569726541757468454e535f344e616d6545010130345f5a4e3863757272656e6379313273746f72654163636f756e74454e33656f73344e616d6545524b4e535f374163636f756e74450201300131355f5a4e3863757272656e637932336170706c795f63757272656e63795f7472616e7366657245524b4e535f385472616e73666572450901300131013201330134013501360137013804696e69740801300131013201330134013501360137056170706c7909013001310132013301340135013601370138010b4163636f756e744e616d65044e616d6502087472616e7366657200030466726f6d0b4163636f756e744e616d6502746f0b4163636f756e744e616d65087175616e746974790655496e743634076163636f756e740002036b65790655496e7436340762616c616e63650655496e74363401000000b298e982a4087472616e736665720100000080bafac608076163636f756e74&quot;
+      }
+    ],
+    &quot;output&quot;: [{
+        &quot;notify&quot;: [],
+        &quot;sync_transactions&quot;: [],
+        &quot;async_transactions&quot;: []
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;pushing-message-to-contract-向合约发送消息&quot;&gt;Pushing Message to Contract 向合约发送消息&lt;/h2&gt;
+
+&lt;p&gt;After the contract is published it initially allocates all of the currency to the currency account. So lets transfer some of it to our tester.&lt;/p&gt;
+
+&lt;p&gt;合约发布后，初始分配所有的代币给 currency 账号。那么，让我们转账一些给 tester 账号。&lt;/p&gt;
+
+&lt;p&gt;We can query the blockchain for the .abi of the contract, on which we can check the list of available actions and their respective message structure&lt;/p&gt;
+
+&lt;p&gt;我们可以在区块链上查询合约的 ABI。在合约的 ABI 里，我们可以看到所有可用的 actions 和 它们各自的消息数据结构。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc get code --a currency.abi currency
+code hash: 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975
+saving abi to currency.abi
+$ cat currency.abi
+{
+  &quot;types&quot;: [{
+      &quot;newTypeName&quot;: &quot;AccountName&quot;,
+      &quot;type&quot;: &quot;Name&quot;
+    }
+  ],
+  &quot;structs&quot;: [{
+      &quot;name&quot;: &quot;transfer&quot;,
+      &quot;base&quot;: &quot;&quot;,
+      &quot;fields&quot;: {
+        &quot;from&quot;: &quot;AccountName&quot;,
+        &quot;to&quot;: &quot;AccountName&quot;,
+        &quot;amount&quot;: &quot;UInt64&quot;
+      }
+    },{
+      &quot;name&quot;: &quot;account&quot;,
+      &quot;base&quot;: &quot;&quot;,
+      &quot;fields&quot;: {
+        &quot;account&quot;: &quot;Name&quot;,
+        &quot;balance&quot;: &quot;UInt64&quot;
+      }
+    }
+  ],
+  &quot;actions&quot;: [{
+      &quot;action&quot;: &quot;transfer&quot;,
+      &quot;type&quot;: &quot;transfer&quot;
+    }
+  ],
+  &quot;tables&quot;: [{
+      &quot;table&quot;: &quot;account&quot;,
+      &quot;indextype&quot;: &quot;i64&quot;,
+      &quot;keynames&quot;: [
+        &quot;account&quot;
+      ],
+      &quot;keytype&quot;: [],
+      &quot;type&quot;: &quot;account&quot;
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;From the above abi, we can see that currency contract accepts an action called transfer that accepts message with fields from, to, and amount.&lt;/p&gt;
+
+&lt;p&gt;从以上的 ABI，我们能看到该货币合约接收一个叫 transfer 的 action，它接收带有 from, to, amount 参数的消息。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc push message currency transfer '{&quot;from&quot;:&quot;currency&quot;,&quot;to&quot;:&quot;tester&quot;,&quot;amount&quot;:50}' -S currency -S tester -p currency@active
+1589302ms thread-0   main.cpp:271                  operator()           ] Converting argument to binary...
+1589304ms thread-0   main.cpp:290                  operator()           ] Transaction result:
+{
+  &quot;transaction_id&quot;: &quot;1c4911c0b277566dce4217edbbca0f688f7bdef761ed445ff31b31f286720057&quot;,
+  &quot;processed&quot;: {
+    &quot;refBlockNum&quot;: 1173,
+    &quot;refBlockPrefix&quot;: 2184027244,
+    &quot;expiration&quot;: &quot;2017-08-24T18:28:07&quot;,
+    &quot;scope&quot;: [
+      &quot;currency&quot;,
+      &quot;tester&quot;
+    ],
+    &quot;signatures&quot;: [],
+    &quot;messages&quot;: [{
+        &quot;code&quot;: &quot;currency&quot;,
+        &quot;type&quot;: &quot;transfer&quot;,
+        &quot;authorization&quot;: [{
+            &quot;account&quot;: &quot;currency&quot;,
+            &quot;permission&quot;: &quot;active&quot;
+          }
+        ],
+        &quot;data&quot;: {
+          &quot;from&quot;: &quot;currency&quot;,
+          &quot;to&quot;: &quot;tester&quot;,
+          &quot;quantity&quot;: 50
+        },
+        &quot;hex_data&quot;: &quot;00000079b822651d00000000c84267a13200000000000000&quot;
+      }
+    ],
+    &quot;output&quot;: [{
+        &quot;notify&quot;: [{
+            &quot;name&quot;: &quot;tester&quot;,
+            &quot;output&quot;: {
+              &quot;notify&quot;: [],
+              &quot;sync_transactions&quot;: [],
+              &quot;async_transactions&quot;: []
+            }
+          }
+        ],
+        &quot;sync_transactions&quot;: [],
+        &quot;async_transactions&quot;: []
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now we can transfer it from tester to inita and require the permission of tester. This should drain the balance of tester to 0.&lt;/p&gt;
+
+&lt;p&gt;现在，我们从 tester 转账给 inita 。它要求 tester 的权限, 消耗 tester 的余额为 0 。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc push message currency transfer '{&quot;from&quot;:&quot;tester&quot;,&quot;to&quot;:&quot;inita&quot;,&quot;amount&quot;:50}' -S inita -S tester -p tester@active
+3116153ms thread-0   main.cpp:271                  operator()           ] Converting argument to binary...
+3116154ms thread-0   main.cpp:290                  operator()           ] Transaction result:
+{
+  &quot;transaction_id&quot;: &quot;56b9f0f3b9f43254af446c5dca02a6fcb24ebcdb506d7248947fd4d52a27972a&quot;,
+  &quot;processed&quot;: {
+    &quot;refBlockNum&quot;: 2882,
+    &quot;refBlockPrefix&quot;: 1880685856,
+    &quot;expiration&quot;: &quot;2017-08-24T19:53:34&quot;,
+    &quot;scope&quot;: [
+      &quot;inita&quot;,
+      &quot;tester&quot;
+    ],
+    &quot;signatures&quot;: [],
+    &quot;messages&quot;: [{
+        &quot;code&quot;: &quot;currency&quot;,
+        &quot;type&quot;: &quot;transfer&quot;,
+        &quot;authorization&quot;: [{
+            &quot;account&quot;: &quot;tester&quot;,
+            &quot;permission&quot;: &quot;active&quot;
+          }
+        ],
+        &quot;data&quot;: {
+          &quot;from&quot;: &quot;tester&quot;,
+          &quot;to&quot;: &quot;inita&quot;,
+          &quot;quantity&quot;: 50
+        },
+        &quot;hex_data&quot;: &quot;00000000c84267a1000000008040934b3200000000000000&quot;
+      }
+    ],
+    &quot;output&quot;: [{
+        &quot;notify&quot;: [{
+            &quot;name&quot;: &quot;inita&quot;,
+            &quot;output&quot;: {
+              &quot;notify&quot;: [],
+              &quot;sync_transactions&quot;: [],
+              &quot;async_transactions&quot;: []
+            }
+          },{
+            &quot;name&quot;: &quot;tester&quot;,
+            &quot;output&quot;: {
+              &quot;notify&quot;: [],
+              &quot;sync_transactions&quot;: [],
+              &quot;async_transactions&quot;: []
+            }
+          }
+        ],
+        &quot;sync_transactions&quot;: [],
+        &quot;async_transactions&quot;: []
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now that tester has a balance of 0, if we attempt this transfer a second time it should fail:&lt;/p&gt;
+
+&lt;p&gt;现在，tester 账号余额为 0 了。如果我们再次尝试该转账操作，它应该失败。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc push message currency transfer '{&quot;from&quot;:&quot;tester&quot;,&quot;to&quot;:&quot;inita&quot;,&quot;amount&quot;:50}' -S inita -S tester -p tester@active
+3543610ms thread-0   main.cpp:271                  operator()           ] Converting argument to binary...
+3543615ms thread-0   main.cpp:311                  main                 ] Failed with error: 10 assert_exception: Assert Exception
+status_code == 200: Error
+: 10 assert_exception: Assert Exception
+test: assertion failed: integer underflow subtracting token balance
+    {&quot;s&quot;:&quot;integer underflow subtracting token balance&quot;,&quot;ptr&quot;:176}
+    thread-1  wasm_interface.cpp:248 assertnonei32i32
+[...snipped...]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;querying-contract-查询合约&quot;&gt;Querying Contract 查询合约&lt;/h2&gt;
+
+&lt;p&gt;After doing the transfer action on currency contract, we can verify the amount of token held by each account by looking at currency’s account table.&lt;/p&gt;
+
+&lt;p&gt;执行完货币合约的转账行为后，我们可以通过查询 currency 账号的账号表，来验证每个账号的代币持有情况。&lt;/p&gt;
+
+&lt;p&gt;This table is stored on the scope of each account instead of on currency scope.&lt;/p&gt;
+
+&lt;p&gt;这个表存储在每个账号下，而不是 currency 账号下。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$./eosc get table tester currency account
+{
+  &quot;rows&quot;: [],
+  &quot;more&quot;: false
+}
+$./eosc get table inita currency account
+{
+  &quot;rows&quot;: [{
+      &quot;account&quot;: &quot;account&quot;,
+      &quot;balance&quot;: 50
+    }
+  ],
+  &quot;more&quot;: true
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;connecting-to-particular-node-连接特定的节点&quot;&gt;Connecting to Particular Node 连接特定的节点&lt;/h2&gt;
+
+&lt;p&gt;By default, eosc will connect to eosd running on localhost port 8888. You can connect to another eosd node by specifying its host and port.&lt;/p&gt;
+
+&lt;p&gt;默认，&lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; 将连接本地端口为 8888 的 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 节点。你可以通过指定主机和端口，连接到其他的 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 节点。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./eosc -H localhost -p 8889
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;using-separate-wallet-app-使用单独的钱包应用程序&quot;&gt;Using Separate Wallet App 使用单独的钱包应用程序&lt;/h2&gt;
+
+&lt;p&gt;Instead of using the wallet functionality built-in to eosd, you can also use a separate wallet app which can be found inside programs/eos-walletd. By default, port 8888 is used by eosd, so choose another port for the wallet app.&lt;/p&gt;
+
+&lt;p&gt;除了使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 内嵌的钱包功能，你也能使用一个单独的钱包应用程序 &lt;code class=&quot;highlighter-rouge&quot;&gt;programs/eos-walletd&lt;/code&gt; 。 默认，&lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 服务使用 8888 端口，故，为钱包应用程序选择另外的端口。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./eos-walletd --http-server-endpoint 127.0.0.1:8887
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then for any operation that requires signing, use the –wallet-host and –wallet-port option&lt;/p&gt;
+
+&lt;p&gt;然后，任何需要使用签名的操作，使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;--wallet-host&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;--wallet-port&lt;/code&gt; 选项。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./eosc --wallet-host 127.0.0.1 --wallet-port 8887 &amp;lt;COMMAND&amp;gt; &amp;lt;SUBCOMMAND&amp;gt; &amp;lt;PARAMS&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;skipping-signatures-跳过签名&quot;&gt;Skipping Signatures 跳过签名&lt;/h2&gt;
+
+&lt;p&gt;As an easy way for developers to test functionality without dealing with keys, eosd can be run so that Transaction signatures are not required.&lt;/p&gt;
+
+&lt;p&gt;为了方便开发者测试功能，&lt;code class=&quot;highlighter-rouge&quot;&gt;eosd&lt;/code&gt; 可以以不需要签名的方式运行。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./eosd --skip-transaction-signatures
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And then for any operation that requires signing, use the -s option&lt;/p&gt;
+
+&lt;p&gt;然后，需要签名的操作，带上 &lt;code class=&quot;highlighter-rouge&quot;&gt;-s&lt;/code&gt; 选项即可跳过签名验证。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./eosc &amp;lt;COMMAND&amp;gt; &amp;lt;SUBCOMMAND&amp;gt; -s &amp;lt;PARAMS&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;additional-documentation-补充文档&quot;&gt;Additional Documentation 补充文档&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; contains documentation for all of its commands. For a list of all commands known to &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt;, simply run it with no arguments:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt; 程序包含所有它的命令的文档。不带参数运行 &lt;code class=&quot;highlighter-rouge&quot;&gt;eosc&lt;/code&gt;, 会显示所有支持的命令帮助。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc
+ERROR: RequiredError: Subcommand required
+Command Line Interface to Eos Daemon
+Usage: ./eosc [OPTIONS] SUBCOMMAND
+Options:
+  -h,--help                   Print this help message and exit
+  -H,--host TEXT=localhost    the host where eosd is running
+  -p,--port UINT=8888         the port where eosd is running
+  --wallet-host TEXT=localhost
+                              the host where eos-walletd is running
+  --wallet-port UINT=8888     the port where eos-walletd is running
+Subcommands:
+  create                      Create various items, on and off the blockchain
+  get                         Retrieve various items and information from the blockchain
+  set                         Set or update blockchain state
+  transfer                    Transfer EOS from account to account
+  wallet                      Interact with local wallet
+  benchmark                   Configure and execute benchmarks
+  push                        Push arbitrary transactions to the blockchain
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To get help with any particular subcommand, run it with no arguments as well:&lt;/p&gt;
+
+&lt;p&gt;不带参数运行子命令，可以获得指定子命令的帮助。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./eosc create
+ERROR: RequiredError: Subcommand required
+Create various items, on and off the blockchain
+Usage: ./eosc create SUBCOMMAND
+Subcommands:
+  key                         Create a new keypair and print the public and private keys
+  account                     Create a new account on the blockchain
+$ ./eosc create account
+ERROR: RequiredError: creator
+Create a new account on the blockchain
+Usage: ./eosc create account creator name OwnerKey ActiveKey
+Positionals:
+  creator TEXT                The name of the account creating the new account
+  name TEXT                   The name of the new account
+  OwnerKey TEXT               The owner public key for the account
+  ActiveKey TEXT              The active public key for the account
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。&lt;/p&gt;
+
+&lt;p&gt;如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;点击查看项目GITHUB，及更多的译文…&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+
+&lt;p&gt;胡亮 区块链技术爱好者，欢迎加微信号:haobaba-huliang&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;
+
+&lt;hr /&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">EOS Command Line Client (eosc) EOS 命令行客户端（eosc）</summary></entry><entry><title type="html">Why decentralized exchange protocols matter</title><link href="http://localhost:4000/Why-Decentralized-Exchange-Protocols-Matter/" rel="alternate" type="text/html" title="Why decentralized exchange protocols matter" /><published>2017-10-14T00:00:00+08:00</published><updated>2017-10-14T00:00:00+08:00</updated><id>http://localhost:4000/Why%20Decentralized%20Exchange%20Protocols%20Matter</id><content type="html" xml:base="http://localhost:4000/Why-Decentralized-Exchange-Protocols-Matter/">&lt;h1 id=&quot;why-decentralized-exchange-protocols-matter-为什么去中心化的交易协议是至关重要&quot;&gt;Why Decentralized Exchange Protocols Matter 为什么去中心化的交易协议是至关重要&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文翻译自：https://medium.com/@FEhrsam/why-decentralized-exchange-protocols-matter-58fb5e08b320&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;译者：&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;区块链中文字幕组&lt;/a&gt; &lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;茶猫&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;翻译时间：2017-10-14&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;Decentralized exchange is early today but feels like it will be essential in a few years.&lt;/p&gt;
+
+&lt;p&gt;去中心化的交易在今天看来为时尚早，但我觉得在未来的几年里将会是至关重要的。&lt;/p&gt;
+
+&lt;p&gt;First, the difference between a decentralized exchange and a decentralized exchange protocol:&lt;/p&gt;
+
+&lt;p&gt;首先，去中心化的交易所和去中心化的交易协议是有所不同的：
+&lt;img src=&quot;https://cdn-images-1.medium.com/max/800/1*DzPME3bv3EU71EKpDT6FDA.png&quot; alt=&quot;enter image description here&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;EtherDelta, an early decentralized exchange（以德，早期的去中心化交易所）&lt;/p&gt;
+
+&lt;p&gt;A decentralized exchange has some combination of decentralized properties. At the moment this most likely means some mix of 1) on-blockchain trade clearing, 2) ability for users to retain control of their funds, and 3) hosting an orderbook in some decentralized manner (this is currently inefficient with current levels of blockchain scaling). They are mostly frontend apps for now. They may run on a decentralized exchange protocol (see below). In the future they may not be a frontend, but rather nodes in a p2p network which relay orders to others, and have only programmatic interfaces. Early examples of decentralized exchanges with frontends include EtherDeltaand OasisDEX. Neither currently use an underlying decentralized exchange protocol. They are small at the moment— EtherDelta does about 2% of the largest centralized exchange’s volume per day.&lt;/p&gt;
+
+&lt;p&gt;一个去中心化的交易所有一些去中心化的特性。目前这些特性表现在：1、链上的交易结算。2、用户能够保留对其资金的控制能力。3、用某种去中心化的方式来委托订单（以目前的区块链规模，效率还比较低下）。他们这些（去中心化交易所）目前订单平台多以app的形式。他们或许运行在去中心化的交易协议上（见下文）。在未来他们不仅是一个订单平台，而是成为用来广播订单给其他人的P2P网络中的节点，还具有编程接口。早期的去中心化交易所有EtherDelta和OasisDEX。这两者目前都没有使用底层的去中心化交易协议。他们目前的规模还很小——EtherDelta 每天的交易规模仅仅是最大的中心化交易所的2%。&lt;/p&gt;
+
+&lt;p&gt;A decentralized exchange protocol defines some combination of: a common trade order format, a way to reward those who spread orders, and a way to complete a trade when a match is found. Examples include Kyber, 0x, Swap, and OmiseGO.&lt;/p&gt;
+
+&lt;p&gt;一个去中心化的交易协议定义了如下的一组特性 ：一个通用的交易订单格式，对传播订单的人有奖励，找到一个匹配来完成交易。类似的例子有Kyber，0x，Swap和Omise GO&lt;/p&gt;
+
+&lt;h4 id=&quot;benefits-of-decentralized-exchanges&quot;&gt;Benefits of decentralized exchanges&lt;/h4&gt;
+
+&lt;p&gt;There are a few obvious benefits to decentralized exchanges. First, they allow you to remain in control of your funds. So no risk of the exchange being hacked or going insolvent. This can lead to higher liquidity, as users may be willing to leave orders open on the orderbook for longer when counterparty risk is gone.&lt;/p&gt;
+
+&lt;h3 id=&quot;去中心化交易的益处&quot;&gt;去中心化交易的益处&lt;/h3&gt;
+
+&lt;p&gt;去中心化交易所有一些明显的益处。首先，它能够让你完全保留对自己资产的掌控，就不会有交易所被攻击和无法偿还的风险。这可以产生更高的流动性，因为当相应的风险消失后，用户更愿意将自己的订单公开在订单表上更长的时间。&lt;/p&gt;
+
+&lt;p&gt;Second, they create global orderbooks. Decentralized exchanges are borderless and can serve anyone from any country.&lt;/p&gt;
+
+&lt;p&gt;第二，它将产生全球的订单表。去中心化的交易所是无国界的，可以服务来自任何一个国家的用户。&lt;/p&gt;
+
+&lt;p&gt;Third, they are low friction. No signup required, just trade.&lt;/p&gt;
+
+&lt;p&gt;第三，更少的阻力。无需注册，直接交易。&lt;/p&gt;
+
+&lt;h3 id=&quot;benefits-of-decentralized-exchange-protocols&quot;&gt;Benefits of decentralized exchange protocols&lt;/h3&gt;
+
+&lt;p&gt;Decentralized exchange protocols bring the benefits of decentralized exchanges and add a few more.&lt;/p&gt;
+
+&lt;h3 id=&quot;去中心化交易协议的益处&quot;&gt;去中心化交易协议的益处&lt;/h3&gt;
+
+&lt;p&gt;去中心化的交易协议除了具有去中心化交易所的益处外，还具有更多的益处：&lt;/p&gt;
+
+&lt;p&gt;First, extending the idea of global orderbooks, decentralized exchange protocols create even more global pools of liquidity. Orders share the same format and can be matched by anyone in any venue, from a p2p relay network to a decentralized exchange app to a text message. If you want to try a demo, check out the 0x order generator. It lets you create a link to a trustless trade you can send to anyone to complete.&lt;/p&gt;
+
+&lt;p&gt;首先，扩大全球订单表的概念，去中心化交易协议创造更多的全球流动性池。通过去中心化的APP发布信息在P2P网络里广播订单，因为该订单使用同一种格式可以让任何人在任何地点被匹配到。如果你像试一些去中心化交易协议的原型，可以点击 https://0xproject.com/portal。 可以用此来创建一个含有无需信任的交易需求的链接，发送此链接给任何人来完成交易匹配。&lt;/p&gt;
+
+&lt;p&gt;Second, decentralized exchange protocols significantly lower the friction of running a decentralized application (dapp). Most decentralized apps will require multiple tokens to work in concert to power them. For example, an app might use a combination of Ether to commit transactions to the blockchain, Filecoin to store and retrieve data, something like Golem to perform more heavy computation, and a token native to the application itself. When launching an app, it’s unlikely a user will have all of these tokens in the right ratios at the right time to seamlessly run it. So a just-in-time mechanism for acquiring tokens is needed. So if you’re designing a dapp or wallet like Metamask, this means you’d be likely to integrate a decentralized exchange protocol, where no third party API or account setup is required.&lt;/p&gt;
+
+&lt;p&gt;第二，去中心化的交易协议可以显著降低运行去中心化应用（dapp）的阻力。大多数的去中心化应用需要多种代币协同运行来支持。例如，一个app可能需要使用不同的以太坊代币来提交交易记录给区块链，Filecoin用来存储和检索数据，有些像Golem用来运行更多的计算，而且一个代币内置属于一个应用。当你安装了一个app，用户不大可能将这些所有代币按正确的比例和正确的时间无缝地运行在这个app上。所以需要一个即时获取代币的机制。如果你设计一个例如Metamask的dapp或者钱包，这就意味着你需要内置一个去中心化的交易协议，而无需第三方的API或者账户设置。&lt;/p&gt;
+
+&lt;p&gt;Further, there’s a category of behaviors which decentralized exchange protocols uniquely enable. This is where things really get interesting.&lt;/p&gt;
+
+&lt;p&gt;此外，还有一些去中心化交易协议特有的特性。这才是真正有趣的地方。&lt;/p&gt;
+
+&lt;p&gt;Consider the case of a smart contract which needs to acquire different tokens to operate. Smart contracts can’t make web-based API calls, so they can’t directly access web-based centralized exchanges. But they can call other smart contracts, so they can directly access decentralized exchanges. As smart contracts become more autonomous and complex, this feels like a must have. As a result, blockchain native dapps and scripts will prefer and often need to use decentralized exchanges. While there aren’t many dapps now so volume is low, there will be lots of “real” (vs. speculative) volume when dapps become plentiful.&lt;/p&gt;
+
+&lt;p&gt;考虑到一个智能合约需要不同的代币来运行的情况。智能合约不能调用基于web的API，所以他们无法直接访问基于web端的中心化交易所。但他们可以访问调用其他智能合约，所以他们可以直接访问去中心化的交易所。当智能合约变得越来越自治且复杂，这将会是必然的趋势。结果是，区块链原生dapp和脚本将经常运行和使用去中心化的交易协议。现在还没有那么多的dapp所以（去中心化交易协议）容量还比较低，当dapp越来越多的时候，将会有很多「真实」（相比于投机）的容量。
+&lt;img src=&quot;https://cdn-images-1.medium.com/max/1000/1*UBN7UOT8yG2yFcRHkaq33w.png&quot; alt=&quot;enter image description here&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;dApps accessing a global liquidity pool thanks to a shared decentralized exchange protocol, from 0x whitepaper
+通过共享的去中心化交易协议，dapp获得全球范围的流动性池——来自0x白皮书&lt;/p&gt;
+
+&lt;p&gt;Decentralized exchange protocols are also open standards that are easy for anyone to build on and customize. For example, dYdX, a protocol for decentralized derivatives, is being built on 0x. People can create any sort of custom product they want using these protocols which is then freely available for anyone else to trade, use, or modify.&lt;/p&gt;
+
+&lt;p&gt;去中心化交易协议是开放标准的，易于任何人建立和订制协议。比如，dYdX，一个去中心化的金融衍生协议，就是创建在0x上。人们可以使用这些协议创建任何类型的定制化产品，然后免费给其他用户去交易、使用或者修改。&lt;/p&gt;
+
+&lt;p&gt;Finally, decentralized exchange protocols can automatically support new tokens immediately. For applications creating and supporting thousands of tokens this will be a requirement. Imagine millions of single day prediction markets with tokens representing each outcome. The same requirement applies when we get thousands of tokenized information feeds around different topics. If you believe we are headed to a world of thousands of tokens, supporting them all natively is critical. And if you are dealing with thousands of tokens, you are likely to want to do it through code rather than manually, which is where the programmatic interface of decentralized exchange protocols is also important.&lt;/p&gt;
+
+&lt;p&gt;最后，去中心化的交易协议可以自动立刻支持新发行的代币。对那些创建和支持数千种代币的应用来说，这点是十分需要的。想象单日展示有数以百万计代币（价格）结果的预测市场。当我们获得关于不同主题的数千个代币化信息源时，也有同样的需求。如果你相信我们正走向一个有着数千万代币的世界，支持其代币是至关重要的。而且如果你正在处理着数千个代币，那么你更可能希望通过代码而不是手工去处理，这就是为什么去中心化交易协议的编程接口是如此重要。&lt;/p&gt;
+
+&lt;h3 id=&quot;drawbacks&quot;&gt;Drawbacks&lt;/h3&gt;
+
+&lt;p&gt;There are some drawbacks. Decentralized exchange requires users to manage security of their own funds and tools for that are immature. They currently have low throughput and face the same scalability challenges as their underlying blockchains, so those wanting low latency and high throughput will prefer centralized exchanges for quite a while. They currently offer little to no support for fiat currencies. They are probably challenging to deal with for regulated entities like traditional financial institutions. Finally, the lack of a block reward-like incentive supercharger in decentralized exchange protocols may make their network effects harder to get off the ground than in some other tokens. But most of these drawbacks can be overcome with time.&lt;/p&gt;
+
+&lt;h3 id=&quot;缺点&quot;&gt;缺点&lt;/h3&gt;
+
+&lt;p&gt;也有一些缺点。去中心化的交易需要用户自己管理资产的安全，而目前此类工具的安全性还不够成熟。（中心化交易）目前有着低并发和面对着如底层区块链一样的可扩展性的挑战，所以有些人在相当长的时间里，希望使用低延迟和高并发的中心化交易所。（去中心化交易）目前也不支持法币。这可能对类似传统金融机构的组织来说是一个挑战。最后，在去中心化交易协议里，对大的承兑商缺乏区块奖励激励可能会让其网络效率相比于其他代币更难提高。但是大多数的缺点都会随着时间推移被克服。&lt;/p&gt;
+
+&lt;p&gt;Zooming out a bit, the future of decentralized exchange is mind boggling. The number and scope of assets that become tokenized will exceed what we see in current financial markets by orders of magnitude. Thanks to decentralized exchange protocols, those tokens will be tradable on unified global markets. And tokens, unlike most assets, allow programmatic interaction with their corresponding systems, so the ability for interplay between the asset, its native system, and other assets is higher than ever. Buckle up.&lt;/p&gt;
+
+&lt;p&gt;说远一些，去中心化交易的未来令人难以执行。未来代币化的资产规模上会超过目前的金融市场。由于去中心化交易协议的存在，这些代币可以在不统一的国际市场上可交易。而代币不同于其他资产，允许相应的系统调用编程接口，因此他们有能力在不同的资产之间调配操作，它的内在的系统和其他资产比以往任何时候都要优异。系好安全带（我们坐在区块链的快速列车上）&lt;/p&gt;
+
+&lt;p&gt;作者：Fred Ehrsam&lt;/p&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。
+如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号：w1791520555
+本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+&lt;p&gt;茶猫 产品经理，区块链技术爱好者，致力于区块链产品分析，欢迎添加微信公众号：bitzhidao&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">Why Decentralized Exchange Protocols Matter 为什么去中心化的交易协议是至关重要</summary></entry><entry><title type="html">The next step for dpos</title><link href="http://localhost:4000/The-Next-Step-for-DPOS/" rel="alternate" type="text/html" title="The next step for dpos" /><published>2017-10-14T00:00:00+08:00</published><updated>2017-10-14T00:00:00+08:00</updated><id>http://localhost:4000/The%20Next%20Step%20for%20DPOS</id><content type="html" xml:base="http://localhost:4000/The-Next-Step-for-DPOS/">&lt;h2 id=&quot;the-next-step-for-dpos-decentralized-block-producers--dpos-的下一步-区块生产者的去中心化&quot;&gt;The next step for DPOS: Decentralized block producers  DPOS 的下一步: 区块生产者的去中心化&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本文翻译自：https://steemit.com/eos/@samupaha/the-next-step-for-dpos-decentralized-block-producers&lt;/p&gt;
+
+  &lt;p&gt;译者：&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;区块链中文字幕组&lt;/a&gt;  &lt;a href=&quot;https://github.com/shuke0327&quot;&gt;荆凯&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;翻译时间：2017-10-14&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;One of the most common criticisms against delegated proof of stake systems is the perceived lack of decentralization. 21 block producers (per round) might seem very low number, even though it’s still very high compared to proof of work systems which are usually fully controlled by less than ten mining pools.&lt;/p&gt;
+
+&lt;p&gt;对委托权益证明系统最常见的批评之一是其缺乏去中心化。区块生产者有21个(每一轮)，这数量似乎很少，虽然与工作量证明系统相比已经算很多了，后者通常被不到十个矿池全权掌控。&lt;/p&gt;
+
+&lt;p&gt;When the centralization by mining pool is pointed out, POW proponents will give a counter-argument:  &lt;em&gt;“It’s not really that bad because miners can change their mining pool whenever they want.”&lt;/em&gt;  Which is true, of course. If a mining pool does something bad, it can lose a lot of hashing power very quickly because miners just choose another pool.&lt;/p&gt;
+
+&lt;p&gt;当人们指出矿池的中心化时，POW 拥护者会反驳称: &lt;em&gt;“由于矿工可以随时切换矿池，所以这并没有那么糟糕。“&lt;/em&gt; 这说法当然正确。如果矿池做了坏事，矿工只要选择其它矿池，它会很快失去大量的hash算力。&lt;/p&gt;
+
+&lt;p&gt;That made me think… Could we implement something similar in DPOS?&lt;/p&gt;
+
+&lt;p&gt;这促使我思考… 我们在 DPOS 中，能否做类似的实现？&lt;/p&gt;
+
+&lt;p&gt;This post is mostly from the perspective of EOS, but ideas can be applied to Steem, Bitshares and other DPOS blockchains, too.&lt;/p&gt;
+
+&lt;p&gt;这篇帖子主要从 EOS 的角度讨论，但这一思路对 Steem、Bitshares 和其它采用 DPOS 的区块链也同样适用。&lt;/p&gt;
+
+&lt;h2 id=&quot;formalization-of-block-producers-responsibilities-生产者责任的构成&quot;&gt;Formalization of block producer’s responsibilities 生产者责任的构成&lt;/h2&gt;
+
+&lt;p&gt;In EOS, block producers will have quite a lot of responsibilities.&lt;/p&gt;
+
+&lt;p&gt;在EOS中，区块生产者将会有很多职责。&lt;/p&gt;
+
+&lt;p&gt;Technical-技术：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;  Creating blocks-创建区块&lt;/li&gt;
+  &lt;li&gt;  File hosting-文件托管&lt;/li&gt;
+  &lt;li&gt;  Back-up servers-备份服务器&lt;/li&gt;
+  &lt;li&gt;  Seed node-种子节点&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Governance-治理：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Following the constitution-遵照宪法&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Account freezing, misbehaving contracts-冻结账户和恶意的合同&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Take-down notices of file-记录文件通知&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;  Hard and soft forks, fees (account creation), parameters (blocksize, rate-limited capacity)&lt;/li&gt;
+  &lt;li&gt;  软硬分叉，费用 （创建帐户），参数 （块大小，限速容量）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Leadership-领导力：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Something like a CEO in a traditional company, keeping everything internal in control（类似传统公司的 CEO，掌控内部所有事物）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Communication with other block producers（与其他区块生产者沟通）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Campaign to get elected as a BP-竞选 BP (区块生产者)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Possible extra services-可能的额外服务：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Account recovery-帐户恢复&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Account creation-创建帐户&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Oracles-预言&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Price feeds-喂价&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;  Dispute resolution service-解决冲突的服务&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As you can see, running a BP is much more than just a server creating blocks. One person might be able to handle everything in the beginning, but when the ecosystem grows, this will require a team.&lt;/p&gt;
+
+&lt;p&gt;如你所见，运行 BP 远远不止用一台服务器创建区块那么简单。刚开始也许一个人能够处理所有事情，但随着生态系统的成长，就需要团队了。&lt;/p&gt;
+
+&lt;h2 id=&quot;decentralization-of-a-block-producer-单个区块生产者的去中心化&quot;&gt;Decentralization of a block producer 单个区块生产者的去中心化&lt;/h2&gt;
+
+&lt;p&gt;When we know all the responsibilities of a BP, we can break them down into smaller jobs which can be done by separate individuals or organizations. This will give us several different options.&lt;/p&gt;
+
+&lt;p&gt;了解了 BP 的所有职责之后，我们可以将其分成较小的任务，这些任务可以由不同的个人或组织来完成。这为我们提供了不同的选择。&lt;/p&gt;
+
+&lt;p&gt;There can be fully centralized BP, for example, an IT company that has professionals who can take care of everything. Or there can be fully decentralized BP, which works like a DAO: BP is just a smart contract which is governed by BP-tokens. Or some combination of those.&lt;/p&gt;
+
+&lt;p&gt;可以存在完全中心化的 BP，例如，一家 IT 公司，由专业人士打理所有事物。或者是完全去中心化的 BP，像 DAO (译者注： 去中心化组织)一样运作：BP 只是一个智能的合同，受 BP 代币监管。或者，这两种方式的结合。&lt;/p&gt;
+
+&lt;p&gt;Decentralized block producers (DBP) will create some benefits for the ecosystem. Let’s look at them more closely.&lt;/p&gt;
+
+&lt;p&gt;去中心化的区块生产者 (DBP) 会使生态系统收益。让我们做一下更详细的分析。&lt;/p&gt;
+
+&lt;h3 id=&quot;additional-layer-of-decentralization-去中心化的附加层&quot;&gt;Additional layer of decentralization 去中心化的附加层&lt;/h3&gt;
+
+&lt;p&gt;While 21 BPs for DPOS is probably more than enough to create a robust system, a little bit more decentralization wouldn’t be a bad thing. Adding more BPs per round isn’t a good option, it would mean that the BP layer just gets a little bit more decentralized. But adding another layer to the system would create more decentralization without any negative side effects, like slowing the system or making it more expensive to run.&lt;/p&gt;
+
+&lt;p&gt;虽然 DPOS 拥有21个BP节点对创建健壮的系统而言也许已经远远足够了，但是多一点去中心化也不坏。每轮增加更多的 BP 并不是个好的选择，这只会让 BP 这一层的去中心化程度提高一点点而已。但是，给系统添加另一层就可以更加去中心化，而不会带来任何不良副作用，如拖慢系统或者增加运行成本等。&lt;/p&gt;
+
+&lt;p&gt;The first layer of the blockchain decentralization is the BPs. The second layer should be different tasks of a BP.
+Blockchain 去中心化的第一层是 BP。第二层应该是一个 BP 节点的不同任务。&lt;/p&gt;
+
+&lt;p&gt;Because DPOS is perceived as not having enough decentralization, this is also good for the marketing. It will be harder to claim that DPOS is too centralized when a BP is not one entity but several entities which can be easily replaced.&lt;/p&gt;
+
+&lt;p&gt;因为人们认为 DPOS 去中心化程度不足，（上述方式）对市场营销也会有益。如果一个 BP 并不是一个实体，而是可以被很容易换掉的多个实体，就更难指责 DPOS 太过中心化了。&lt;/p&gt;
+
+&lt;p&gt;It will be much harder for BPs to conspire against the ecosystem. And of course, it will make harder to anyone attack against BPs because they are not one entity.&lt;/p&gt;
+
+&lt;p&gt;这也会让 BP（译者注： 区块生产者）密谋反对生态系统的难度大大增加。当然，对 BP 的攻击也会更难，因为 BP 并不是单个实体。&lt;/p&gt;
+
+&lt;h3 id=&quot;lower-barriers-to-entry-降低进入门槛&quot;&gt;Lower barriers to entry 降低进入门槛&lt;/h3&gt;
+
+&lt;p&gt;There have been fears that when the system grows, the barrier to entry will become too high. Being a BP might require big investments to server infrastructure to ensure capacity and that will discourage people to become a BP.&lt;/p&gt;
+
+&lt;p&gt;有人担心随着系统增长，进入门槛会变得太高。成为 BP 可能需要大量的资金购置服务器基础设施以确保其能力，而这会阻碍人们成为 BP。&lt;/p&gt;
+
+&lt;p&gt;Instead of taking care of all responsibilities of a BP, individual or organization can start with just one thing, like file storage. They can identify a DBP whose file storage is lower than others and offer to replace it. After they have earned money and reputation, they can start to take care of other responsibilities, too.&lt;/p&gt;
+
+&lt;p&gt;个人或组织可以不必承担 BP 的全部职责，而是只从其中一件事开始做起，比如文件存储。他们可以识别出文件存储能力比别人低的DBP，然后主动提出来替换它。获得了金钱和声誉后，他们也可以开始承担其它的职责。&lt;/p&gt;
+
+&lt;h3 id=&quot;specialization-专业化分工&quot;&gt;Specialization 专业化分工&lt;/h3&gt;
+
+&lt;p&gt;Usually, the system becomes more efficient when individuals and organizations specialize in certain work. They can focus on the one thing and become really good at that. They don’t need to spend resources trying to become great at everything – often that means they are going to be weak at some things.&lt;/p&gt;
+
+&lt;p&gt;通常而言，当个人和组织分工明确时，系统的效率会越高。他们可以专注于一件事情，并精于此道。他们不需要耗费资源试图把所有事情都做好 — 这往往意味着他们在一些事情上会变弱。&lt;/p&gt;
+
+&lt;p&gt;When people/organizations specialize, they can produce the services at lower cost. In the case of EOS, this is very beneficial because BPs can then offer more capacity for the blockchain.&lt;/p&gt;
+
+&lt;p&gt;当人/组织分工明确时，他们能够以更低成本提供服务。在 EOS 之中这会非常有益，因为 BP 可以为 blockchain 提供更强的处理能力。&lt;/p&gt;
+
+&lt;h3 id=&quot;self-healing-自我修复&quot;&gt;Self-healing 自我修复&lt;/h3&gt;
+
+&lt;p&gt;DBPs can monitor their capacity and uptime and see how well they are doing compared to others. If some part of their DBP organization seems to be weaker than others, they can find a better partner. This is probably more efficient compared to a centralized BP, which has to either make an effort to learn how to do a better job or hire somebody to do it.&lt;/p&gt;
+
+&lt;p&gt;DBPs 可以监控他们的处理能力和正常运行时间（uptime），观察与其它节点相比自己的表现如何。如果他们的 DBP 组织中的某些部分似乎比别人差，他们可以寻找更好的合作伙伴。相比中心化的 BP，这样做可能效率更高，后者必须努力学习如何自己做到更好，要么雇人来做。&lt;/p&gt;
+
+&lt;p&gt;DBP can just look at possible alternatives (assuming there are markets for them) and replace low-performing partner with a better one. When the process of integrating different BP services is formalized, this should be very easy to do.&lt;/p&gt;
+
+&lt;p&gt;DBP 只用考虑可能的备选方案 （假设存在这一供应市场），将表现差的合作者换成表现更好的。当集成不同的 BP 服务的流程正式形成时，可以很容易做到。&lt;/p&gt;
+
+&lt;h3 id=&quot;voter-apathy-投票者的冷漠&quot;&gt;Voter apathy 投票者的冷漠&lt;/h3&gt;
+
+&lt;p&gt;One of the weaknesses of DPOS is voter apathy. A large percentage of the voters don’t check their voting list often enough and make changes when necessary. The result is that many potentially good BPs won’t be voted in and some underperforming will be staying.&lt;/p&gt;
+
+&lt;p&gt;DPOS 的弱点之一就是投票者冷漠（voter apathy）。很大比例的选民并不经常检查他们的投票列表，也不会在必要时做出更改。结果导致许多潜在的优秀 BP 没有选出，而一些表现不佳的 BP 则继续留任。&lt;/p&gt;
+
+&lt;p&gt;Instead of changing their votes, stakeholders could just voice their opinion about weak BPs. For example, if a DBP has low file storage capacity, stakeholders could demand that they will replace the file storage partner with better one or else they will be voted out. In many cases, this will be enough and the result is better performing BPs without a need for voters to change their vote.&lt;/p&gt;
+
+&lt;p&gt;利益相关者可以不用修改投票，只需要对表现差的 BP 发声表达意见即可。例如，若一个 DBP 的文件存储能力弱，利益相关方可以要求他们将文件存储方面的合作伙伴换成更好的，否则就投票淘汰他们。在很多情况下，这样做就够了，投票者无需更改他们的投票，就可以得到表现更好的 BP。&lt;/p&gt;
+
+&lt;p&gt;It’s much easier to handle certain questions one at a time, like file storage capacity. It’s harder to compare different BPs with different strengths and weaknesses and try to choose which combination is the best for the whole ecosystem. Most people are too lazy to do it very often.&lt;/p&gt;
+
+&lt;p&gt;一次处理一个特定问题要容易得多，例如文件存储能力的问题。很难对有不同长处和短处的 BP 进行比较，并选出对整个生态系统而言更有利的组合。大部分人都很懒，不会经常这么做。&lt;/p&gt;
+
+&lt;h3 id=&quot;learning-decentralized-governance-学习去中心化的治理&quot;&gt;Learning decentralized governance 学习去中心化的治理&lt;/h3&gt;
+
+&lt;p&gt;Good governance is hard. Especially when the governed group is distributed around the world. DBPs have to be well-governed, otherwise, they will be voted out. Block producing is so essential task that underperformance won’t be tolerated for long. This creates a big incentive for DBPs design efficient governance models for cooperation.&lt;/p&gt;
+
+&lt;p&gt;好的治理很难。尤其是当管理团队分散在世界各地时，更是如此。DBPs（注：去中心化的区块链生产者们）必须进行有效的治理，否则就会被投票淘汰。区块生产的任务非常关键，如果表现不佳，人们不会容忍太久。这大大刺激了 DBPs 去设计有效率的治理模式以便协作。&lt;/p&gt;
+
+&lt;p&gt;DBP can be designed like a DAO. There will be BP-tokens that hold voting power over the BP. All decisions are made by stakeholders vote, like deciding who will be a partner responsible for a particular task. All the profit will be paid as an interest for BP-token holders, which can attract investors to support the DBP. With EOS permission management, this should be pretty easy to do.&lt;/p&gt;
+
+&lt;p&gt;DBP 可以设计成类似 DAO 的方式。会出现 BP 代币，拥有代币，就可以在 BP 上拥有投票的权力。所有的决定应由利益相关者投票，例如决定负责特定任务的合作方由谁来担任。所有产生的利润，将会作为利息支付给 BP 代币的持有者，可以吸引投资者支持 DBP 。借助 EOS 的权限管理功能，这应该非常容易实现。&lt;/p&gt;
+
+&lt;p&gt;Hopefully, there will be lots of different governance models tried for DBPs. Over time the bad ones will be voted out and the best will flourish. It will be a great lesson how to actually create successful decentralized organizations. So far it has been mostly talking and not enough deliberate learning through trial and error.&lt;/p&gt;
+
+&lt;p&gt;有希望出现很多对不同的 DBPs 治理模式的尝试。随着时间的推移，坏的模式会被淘汰，好的将会蓬勃发展。可以从中学到很多经验，如何成功创建真实的去中心化组织。 迄今为止还只是谈论（如何创建去中心化的组织），通过反复试错来进行的有意识的学习并不够。&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion-结论&quot;&gt;Conclusion 结论&lt;/h2&gt;
+
+&lt;p&gt;If we think block producers as “mining pools” instead of single entities, we can achieve an additional layer in the decentralization of DPOS. This will create several benefits for the ecosystem.&lt;/p&gt;
+
+&lt;p&gt;如果我们将区块生产者视作“矿池”，而不是单个的实体，我们会在 DPOS 的去中心化中得到一个附加层。这会为生态系统带来多种益处。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;区块链中文字幕组&quot;&gt;区块链中文字幕组&lt;/h4&gt;
+
+&lt;p&gt;致力于前沿区块链知识和信息的传播，为中国融入全球区块链世界贡献一份力量。&lt;/p&gt;
+
+&lt;p&gt;如果您懂一些技术、懂一些英文，欢迎加入我们，加微信号:w1791520555。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BlockchainTranslator/EOS&quot;&gt;点击查看项目GITHUB，及更多的译文…&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;本文译者简介&quot;&gt;本文译者简介&lt;/h4&gt;
+
+&lt;p&gt;荆凯，程序员，坚信区块链将会改变潮水的方向。欢迎加微信: shuke0327，或者关注公众号: 增长之道&lt;/p&gt;
+
+&lt;p&gt;本文由币乎社区（bihu.com）内容支持计划赞助。&lt;/p&gt;
+
+&lt;p&gt;版权所有，转载需完整注明以上内容。&lt;/p&gt;
+
+&lt;hr /&gt;</content><author><name>BlockchainTranslator  </name></author><summary type="html">The next step for DPOS: Decentralized block producers DPOS 的下一步: 区块生产者的去中心化</summary></entry></feed>
